@@ -1,0 +1,113 @@
+sub</b></div>
+          <div class="box"><small>AML / PEP</small><b>Passed</b></div>
+          <div class="box"><small>Financial Profile</small><b>Approved</b></div>
+          <div class="box"><small>CRA</small><b>Approved</b></div>
+        </div>
+
+        <span class="inline-status">Verified</span>
+        <button class="primary" style="margin-top:20px" onclick="toast('Prototype: open LCT dashboard')">Go to dashboard</button>
+      </div>
+    </section>
+
+
+    <!-- Business KYB -->
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Business KYB</div>
+      <h1 class="title">Company information</h1>
+      <div class="sub">Start with the legal entity information exactly as shown on the company registration documents.</div>
+      <div class="row2">
+        <div class="field"><label>Country of incorporation</label><select id="kybCountry"><option>United Arab Emirates</option><option>Malta</option><option>Germany</option><option>United Kingdom</option></select></div>
+        <div class="field"><label>Company type</label><select id="kybType"><option>Free Zone Establishment</option><option>Limited Liability Company</option><option>Private Company</option><option>Other</option></select></div>
+      </div>
+      <div class="field"><label>Legal company name</label><input id="kybName" placeholder="Enter legal company name"/></div>
+      <div class="row2">
+        <div class="field"><label>Registration number</label><input id="kybReg" placeholder="Enter registration number"/></div>
+        <div class="field"><label>Date of incorporation</label><input id="kybDate" type="date"/></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Company phone number</label><input id="kybPhone" placeholder="+971 ..."/></div>
+        <div class="field"><label>Website</label><input id="kybWebsite" placeholder="https://"/></div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="goAccount(4)">Back</button><button class="primary" onclick="goKyb(2)">Continue</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Business KYB</div>
+      <h1 class="title">Company address</h1>
+      <div class="sub">Provide the registered address and, if different, the correspondence address used for official communications.</div>
+      <div class="form-section">
+        <h3>Registered address</h3>
+        <div class="field"><label>Address line 1</label><input id="regAddress" placeholder="Registered address"/></div>
+        <div class="row2">
+          <div class="field"><label>City</label><input id="regCity" placeholder="City"/></div>
+          <div class="field"><label>Country</label><select id="regCountry"><option>United Arab Emirates</option><option>Malta</option><option>Germany</option><option>United Kingdom</option></select></div>
+        </div>
+      </div>
+      <div class="question">
+        <div class="question-head">
+          <div><h3>Correspondence address is different</h3><p>Turn this on if company correspondence should be sent to another address.</p></div>
+          <div id="corrSwitch" class="switch" onclick="toggleCorrespondence()"></div>
+        </div>
+        <div id="corrPanel" class="panel">
+          <div class="field"><label>Correspondence address</label><input id="corrAddress" placeholder="Correspondence address"/></div>
+          <div class="row2">
+            <div class="field"><label>City</label><input id="corrCity" placeholder="City"/></div>
+            <div class="field"><label>Country</label><select id="corrCountry"><option>United Arab Emirates</option><option>Malta</option><option>Germany</option><option>United Kingdom</option></select></div>
+          </div>
+        </div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="goKyb(1)">Back</button><button class="primary" onclick="goKyb(3)">Continue</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Business KYB</div>
+      <h1 class="title">Business & financial profile</h1>
+      <div class="sub">Tell us about the company’s activity, Source of Funds, Source of Wealth and expected scale.</div>
+      <div class="field"><label>Nature of business</label><input id="natureBusiness" placeholder="e.g. Technology / Virtual Assets"/></div>
+      <div class="row2">
+        <div class="field"><label>Source of Funds</label><select id="companySof"><option>Operating revenue</option><option>Shareholder funding</option><option>Investment capital</option><option>Other</option></select></div>
+        <div class="field"><label>Place of Source of Funds</label><select id="companySofPlace"><option>United Arab Emirates</option><option>United Kingdom</option><option>Singapore</option><option>Other</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Source of Wealth</label><select id="companySow"><option>Operating profits</option><option>Shareholder capital</option><option>Investments</option><option>Other</option></select></div>
+        <div class="field"><label>Place of Source of Wealth</label><select id="companySowPlace"><option>United Arab Emirates</option><option>United Kingdom</option><option>Singapore</option><option>Other</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Total assets under management (AUM)</label><select id="companyAum"><option>AED 0 – 1M</option><option>AED 1M – 5M</option><option>AED 5M – 20M</option><option>AED 20M – 100M</option><option>AED 100M+</option></select></div>
+        <div class="field"><label>Expected monthly transaction volume</label><select id="companyVolume"><option>AED 0 – 250K</option><option>AED 250K – 1M</option><option>AED 1M – 5M</option><option>AED 5M+</option></select></div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="goKyb(2)">Back</button><button class="primary" onclick="goKyb(4)">Continue</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Business KYB</div>
+      <h1 class="title">PEP & compliance questions</h1>
+      <div class="sub">Answer the questions below for the company and the persons who own, control or represent it.</div>
+      <div class="field"><label>Is the company owned, controlled or managed by a politically exposed person (PEP)?</label><select id="companyPep"><option>No</option><option>Yes</option></select></div>
+      <div class="field"><label>Does any UBO, director or authorised representative have a family / close-associate relationship with a PEP?</label><select id="rolePep"><option>No</option><option>Yes</option></select></div>
+      <div class="field"><label>Has the company or any key role held a prominent public function in the last 12 months?</label><select id="publicFunction"><option>No</option><option>Yes</option></select></div>
+      <div class="notice warning">A “Yes” answer does not automatically prevent onboarding. It may trigger additional due diligence and compliance review.</div>
+      <div class="actions"><button class="secondary" onclick="goKyb(3)">Back</button><button class="primary" onclick="goKyb(5)">Continue</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Business KYB</div>
+      <h1 class="title">Key roles</h1>
+      <div class="sub">Add the Ultimate Beneficial Owners, directors, authorised signatories and the person completing this application.</div>
+      <div class="form-section">
+        <h3>Ultimate Beneficial Owners</h3><div class="desc">Add all natural persons who ultimately own or control the company.</div>
+        <div class="role-card"><div class="role-avatar">NP</div><div class="role-main"><b>Norman Pu</b><small>UBO · 60% direct ownership · PEP: No</small></div><button class="role-action" onclick="openRoleForm('UBO')">Edit</button></div>
+        <button class="secondary" onclick="openRoleForm('UBO')">+ Add UBO</button>
+      </div>
+      <div class="form-section">
+        <h3>Directors & authorised representatives</h3><div class="desc">Add directors, authorised signatories and representatives.</div>
+        <div class="role-card"><div class="role-avatar">AR</div><div class="role-main"><b>Alex Representative</b><small>Director · Authorised signatory · PEP: No</small></div><button class="role-action" onclick="openRoleForm('Director')">Edit</button></div>
+        <button class="secondary" onclick="openRoleForm('Director')">+ Add person</button>
+      </div>
+      <div class="notice">Each natural person may be required to complete an individual KYC / AML check. LCT stores the role and ownership relationship against the company application.</div>
+      <div class="actions"><button class="secondary" onclick="goKyb(4)">Back</button><button class="primary" onclick="goKyb(6)">Continue</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Business KYB</div>
+      <h1 class="title">Company documents</h1>
