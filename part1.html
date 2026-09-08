@@ -1,0 +1,125 @@
+
+<header class="topbar">
+  <div class="brand"><span class="mark"><i></i></span>LCT</div>
+  <div id="headerTag" class="header-tag">Individual KYC</div>
+  <div class="top-actions"><div class="support">Need help? Support Center</div><button class="login">Log in</button></div>
+</header>
+
+<div class="shell">
+  <div class="progress-wrap">
+    <div class="progress-meta"><span id="stepText">Step 1 of 4</span><b id="stepName">Account</b></div>
+    <div class="progress"><div id="bar"></div></div>
+  </div>
+
+  <main class="card" id="card">
+    <!-- Account setup -->
+    <section class="screen active account-screen" data-step="1">
+      <div class="eyebrow">Create account</div>
+      <h1 class="title">Start with your email</h1>
+      <div class="sub">Create your LCT account first. Identity or business verification starts after account setup.</div>
+      <div class="field" id="emailField">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="name@example.com" autocomplete="email"/>
+        <div class="hint error">Enter a valid email address.</div>
+      </div>
+      <div id="consentRow" class="consent-row" onclick="openConsent()">
+        <div class="checkdot">✓</div>
+        <div class="consent-copy"><b>Review and accept legal agreements</b><br><span>LCT User Agreement</span> and <span>Privacy Policy</span></div>
+      </div>
+      <button id="emailContinue" class="primary" style="margin-top:22px" onclick="continueEmail()" disabled>Continue</button>
+      <div class="footer-note">Already have an account? <a href="javascript:void(0)">Log in</a></div>
+    </section>
+
+    <section class="screen account-screen" data-step="2">
+      <div class="eyebrow">Security</div>
+      <h1 class="title">Verify your phone</h1>
+      <div class="sub">Add a mobile number for account security and onboarding notifications.</div>
+      <div class="phone-grid">
+        <div class="field"><label>Country code</label><select id="code"><option>+971</option><option>+86</option><option>+44</option><option>+49</option><option>+1</option></select></div>
+        <div class="field" id="phoneField"><label>Phone number</label><input id="phone" inputmode="tel" placeholder="50 123 4567"/><div class="hint error">Enter a phone number.</div></div>
+      </div>
+      <div class="code-row">
+        <div class="field" style="margin-bottom:0"><label>Verification code</label><input id="otp" inputmode="numeric" placeholder="6-digit code" maxlength="6"/></div>
+        <button id="sendCode" class="send" style="margin-top:22px" onclick="sendOtp()">Send code</button>
+      </div>
+      <div id="verified" class="verified">✓ Code verified</div>
+      <div class="actions"><button class="secondary" onclick="goAccount(1)">Back</button><button class="primary" onclick="verifyOtp()">Continue</button></div>
+    </section>
+
+    <section class="screen account-screen" data-step="3">
+      <div class="eyebrow">Account type</div>
+      <h1 class="title">How will you use LCT?</h1>
+      <div class="sub">Choose the onboarding journey that matches the account you want to open.</div>
+      <div class="choice-list">
+        <div class="choice selected" data-type="individual" onclick="selectType(this)"><div class="ico">ID</div><div><h3>Individual account</h3><p>For personal use. Continue with identity, address and financial profile verification.</p></div><div class="radio-ring"></div></div>
+        <div class="choice" data-type="business" onclick="selectType(this)"><div class="ico">CO</div><div><h3>Business account</h3><p>For companies and institutions. Continue with company, ownership and key-role verification.</p></div><div class="radio-ring"></div></div>
+      </div>
+      <div class="actions"><button class="secondary" onclick="goAccount(2)">Back</button><button class="primary" onclick="finishType()">Continue</button></div>
+    </section>
+
+    <section class="screen account-screen" data-step="4">
+      <div class="done-panel">
+        <div class="done-icon">✓</div>
+        <div class="eyebrow">Account setup complete</div>
+        <h1 class="title" id="doneTitle">Continue to Individual KYC</h1>
+        <div class="sub" id="doneSub">Your email, legal consent and phone verification are complete. The next step is identity verification.</div>
+        <div class="summary-box">
+          <div class="summary-row"><span>Email</span><b id="sumEmail">—</b></div>
+          <div class="summary-row"><span>Phone</span><b id="sumPhone">—</b></div>
+          <div class="summary-row"><span>Legal agreements</span><b>Accepted</b></div>
+          <div class="summary-row"><span>Account type</span><b id="sumType">Individual</b></div>
+        </div>
+        <button class="primary" onclick="startSelectedJourney()" id="nextJourney">Start Individual KYC</button>
+        <button class="text-btn" style="margin-top:16px" onclick="goAccount(3)">Change account type</button>
+      </div>
+    </section>
+
+    <!-- Individual KYC -->
+    <section class="screen kyc-screen">
+      <div class="eyebrow">Individual KYC</div>
+      <h1 class="title">Tell us about yourself</h1>
+      <div class="sub">We’ll use this information to apply the correct verification and compliance requirements.</div>
+      <div class="field"><label>Country of residence</label><select id="residence"><option>United Arab Emirates</option><option>Germany</option><option>France</option><option>United Kingdom</option></select></div>
+      <div class="field"><label>Primary nationality</label><select id="nationality"><option>China</option><option>United Arab Emirates</option><option>Canada</option><option>Germany</option><option>France</option></select></div>
+
+      <div class="question">
+        <div class="question-head">
+          <div><h3>Do you hold another passport or nationality?</h3><p>Turn this on if you currently hold an additional nationality or passport.</p></div>
+          <div id="nationalitySwitch" class="switch" onclick="toggleNationality()"></div>
+        </div>
+        <div id="nationalityPanel" class="panel">
+          <div class="panel-title">Additional nationality / passport</div>
+          <div class="field"><label>Additional nationality</label><select id="additionalNationality"><option>Canada</option><option>United Arab Emirates</option><option>Germany</option><option>France</option></select></div>
+          <div class="row2">
+            <div class="field"><label>Document type</label><select id="additionalDocType"><option>Passport</option><option>National ID</option></select></div>
+            <div class="field"><label>Document number</label><input id="additionalDocNumber" placeholder="Enter document number"/></div>
+          </div>
+          <div class="field"><label>Expiry date</label><input id="additionalExpiry" type="date"/></div>
+        </div>
+      </div>
+
+      <div class="field"><label>PEP declaration</label><select id="pep"><option value="no">No — neither I nor a close family member / associate is a PEP</option><option value="self">Yes — I am a politically exposed person</option><option value="related">Yes — a family member or close associate is a PEP</option></select><div class="hint">PEP = Politically Exposed Person.</div></div>
+      <div class="actions"><button class="secondary" onclick="backToAccount()">Back</button><button class="primary" onclick="goKyc(2)">Continue</button></div>
+    </section>
+
+    <section class="screen kyc-screen">
+      <div class="eyebrow">Identity verification</div>
+      <h1 class="title">Verify your identity</h1>
+      <div class="sub">Identity verification is completed in the Sumsub WebSDK. After completion, the verification result is returned to LCT and the user continues the onboarding flow here.</div>
+
+      <div class="notice" style="margin-bottom:14px;background:#f8f8fa;border-color:#e5e5ea;color:#50515a">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:34px;height:34px;border-radius:10px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900">S</div>
+          <div><b style="color:#1d1e23">Identity verification provided by Sumsub</b><br>
+          <span style="font-size:11.5px;color:#858692">Document verification · Liveness · Face match · Proof of address</span></div>
+        </div>
+      </div>
+
+      <div id="verifyCard" class="verification-card">
+        <div class="verify-symbol" style="background:#111827;color:#fff">S</div>
+        <div><h3>Sumsub verification</h3><p>Passport or Emirates ID · Liveness · Proof of address</p></div>
+        <div id="verifyStatus" class="status">Not started</div>
+      </div>
+      <div class="notice" style="margin-top:14px">LCT receives the verification status and verified identity data from Sumsub. Users do not need to re-enter verified document information.</div>
+      <button id="startVerification" class="primary" style="margin-top:22px" onclick="openSdk()">Continue with Sumsub</button>
+      <div class="actions"><button class="secondary" onclick="goKyc(1)
