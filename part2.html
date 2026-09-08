@@ -1,0 +1,129 @@
+">Back</button><button id="identityContinue" class="primary" onclick="goKyc(3)" disabled>Continue</button></div>
+    </section>
+
+    <section class="screen kyc-screen">
+      <div class="eyebrow">Address</div>
+      <h1 class="title">Confirm your residential address</h1>
+      <div class="sub">Enter your current residential address. The address should match the proof of address submitted during verification.</div>
+      <div class="field"><label>Address line 1</label><input id="address1" value="Sheikh Zayed Road"/></div>
+      <div class="row2">
+        <div class="field"><label>City</label><input id="city" value="Dubai"/></div>
+        <div class="field"><label>Postal code</label><input id="postcode" placeholder="Optional"/></div>
+      </div>
+      <div class="field"><label>Country</label><select id="addressCountry"><option>United Arab Emirates</option><option>Germany</option><option>France</option></select></div>
+      <div class="notice success">✓ Proof of address submitted during identity verification.</div>
+      <div class="actions"><button class="secondary" onclick="goKyc(2)">Back</button><button class="primary" onclick="buildReview();goKyc(4)">Continue</button></div>
+    </section>
+
+    <section class="screen kyc-screen">
+      <div class="eyebrow">Review</div>
+      <h1 class="title">Review your KYC information</h1>
+      <div class="sub">Check the information below before continuing to the financial profile.</div>
+
+      <div class="review-section">
+        <div class="review-head"><b>Profile</b><button class="edit" onclick="goKyc(1)">Edit</button></div>
+        <div class="review-row"><span>Country of residence</span><strong id="rvResidence">—</strong></div>
+        <div class="review-row"><span>Primary nationality</span><strong id="rvNationality">—</strong></div>
+        <div class="review-row"><span>Additional nationality</span><strong id="rvAdditional">None</strong></div>
+        <div class="review-row"><span>PEP declaration</span><strong id="rvPep">No</strong></div>
+      </div>
+
+      <div class="review-section">
+        <div class="review-head"><b>Verified identity</b><button class="edit" onclick="goKyc(2)">View</button></div>
+        <div class="review-row"><span>Full name</span><strong>Norman Pu</strong></div>
+        <div class="review-row"><span>Document</span><strong>Passport · Verified by Sumsub</strong></div>
+        <div class="review-row"><span>Expiry</span><strong>30 Jun 2032</strong></div>
+        <div class="review-row"><span>Liveness / face match</span><strong>Passed · Sumsub</strong></div>
+      </div>
+
+      <div class="review-section">
+        <div class="review-head"><b>Residential address</b><button class="edit" onclick="goKyc(3)">Edit</button></div>
+        <div class="review-row"><span>Address</span><strong id="rvAddress">—</strong></div>
+        <div class="review-row"><span>Proof of address</span><strong>Submitted</strong></div>
+      </div>
+
+      <div class="notice warning">Next, we’ll collect your employment and financial profile information, including Source of Funds and Source of Wealth.</div>
+      <div class="actions"><button class="secondary" onclick="goKyc(3)">Back</button><button class="primary" onclick="goKyc(5)">Continue</button></div>
+    </section>
+
+    <section class="screen kyc-screen">
+      <div class="done-panel">
+        <div class="done-icon">✓</div>
+        <div class="eyebrow">Individual KYC · Identity complete</div>
+        <h1 class="title">Identity section completed</h1>
+        <div class="sub">Your identity, nationality and residential address information are complete. Continue to your financial profile.</div>
+        <div class="status-list">
+          <div class="status-row done"><div class="status-dot">✓</div><span>Account & phone</span><small>Completed</small></div>
+          <div class="status-row done"><div class="status-dot">✓</div><span>Identity & liveness</span><small>Verified</small></div>
+          <div class="status-row done"><div class="status-dot">✓</div><span>Nationality / PEP</span><small>Completed</small></div>
+          <div class="status-row done"><div class="status-dot">✓</div><span>Residential address</span><small>Completed</small></div>
+          <div class="status-row"><div class="status-dot">3</div><span>Financial profile</span><small>Next</small></div>
+        </div>
+        <button class="primary" onclick="goFp(1)">Continue to Financial Profile</button>
+        <button class="text-btn" style="margin-top:16px" onclick="goKyc(4)">Review KYC details</button>
+      </div>
+    </section>
+
+    <!-- Financial Profile -->
+    <section class="screen fp-screen">
+      <div class="eyebrow">Financial profile</div>
+      <h1 class="title">Employment information</h1>
+      <div class="sub">Tell us about your current employment. We use this together with KYC, AML screening and your customer risk assessment.</div>
+
+      <div class="field">
+        <label>Employment status</label>
+        <select id="employmentStatus" onchange="toggleEmployerPanel()">
+          <option value="employed">Employed</option>
+          <option value="self">Self-employed</option>
+          <option value="business">Business owner</option>
+          <option value="student">Student</option>
+          <option value="retired">Retired</option>
+          <option value="unemployed">Unemployed</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="field"><label>Occupation / industry</label><input id="occupation" placeholder="e.g. Product Management / Technology"/></div>
+
+      <div id="employerPanel" class="panel show">
+        <div class="panel-title" id="employerTitle">Employer information</div>
+        <div class="field"><label>Employer or business name</label><input id="employerName" placeholder="Enter employer / business name"/></div>
+        <div class="row2">
+          <div class="field"><label>Country of employer</label><select id="employerCountry"><option>United Arab Emirates</option><option>China</option><option>Germany</option><option>United Kingdom</option><option>Other</option></select></div>
+          <div class="field"><label>City of employer</label><input id="employerCity" placeholder="Enter city"/></div>
+        </div>
+        <div class="field"><label>Address of employer</label><input id="employerAddress" placeholder="Enter employer address"/></div>
+      </div>
+
+      <div class="notice" style="margin-top:14px"><b>Why we ask</b><br>This information helps LCT understand your expected financial activity and assess whether additional due diligence is required.</div>
+      <div class="actions"><button class="secondary" onclick="goKyc(5)">Back</button><button class="primary" onclick="goFp(2)">Continue</button></div>
+    </section>
+
+    <section class="screen fp-screen">
+      <div class="eyebrow">Financial profile</div>
+      <h1 class="title">Source of Funds</h1>
+      <div class="sub">Tell us where the money or digital assets you expect to deposit into your LCT account will come from.</div>
+
+      <div class="field">
+        <label>Select all applicable sources</label>
+        <div class="chips" id="sofChips">
+          <div class="chip selected" onclick="toggleChip(this)">Salary</div>
+          <div class="chip" onclick="toggleChip(this)">Business income</div>
+          <div class="chip" onclick="toggleChip(this)">Savings</div>
+          <div class="chip" onclick="toggleChip(this)">Investment proceeds</div>
+          <div class="chip" onclick="toggleChip(this)">Property sale</div>
+          <div class="chip" onclick="toggleChip(this)">Inheritance / Gift</div>
+          <div class="chip" onclick="toggleChip(this)">Digital assets</div>
+          <div class="chip" onclick="toggleChip(this)">Other</div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Primary Source of Funds</label><select id="primarySof"><option>Salary</option><option>Business income</option><option>Savings</option><option>Investment proceeds</option><option>Property sale</option><option>Inheritance / Gift</option><option>Digital assets</option><option>Other</option></select></div>
+        <div class="field"><label>Place of Source of Funds</label><select id="sofCountry"><option>United Arab Emirates</option><option>China</option><option>Germany</option><option>United Kingdom</option><option>Singapore</option><option>Other</option></select></div>
+      </div>
+
+      <div class="field"><label>Estimated annual amount to be deposited</label><select id="annualDeposit"><option>AED 0 – 50,000</option><option>AED 50,000 – 250,000</option><option>AED 250,000 – 1,000,000</option><option>AED 1,000,000+</option></select></div>
+      <div class="field"><label>Briefly explain the origin of these funds</label><textarea id="sofExplanation" placeholder="e.g. Monthly salary and accumulated personal savings."></textarea></div>
+
+      <div class="actions"><button class="secondary" onclick="goFp(1)">Back</button><button class="primary" o
