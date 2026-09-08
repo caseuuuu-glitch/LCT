@@ -1,0 +1,111 @@
+
+      <div class="sub">Upload documents supporting the company’s legal existence, ownership and business activity.</div>
+      <div class="upload-grid">
+        <div class="upload-box" onclick="markUpload(this)">＋<b>Certificate of incorporation</b><span>Click to upload</span></div>
+        <div class="upload-box" onclick="markUpload(this)">＋<b>Trade / business licence</b><span>Click to upload</span></div>
+        <div class="upload-box" onclick="markUpload(this)">＋<b>Memorandum / Articles</b><span>Click to upload</span></div>
+        <div class="upload-box" onclick="markUpload(this)">＋<b>Shareholder / ownership register</b><span>Click to upload</span></div>
+      </div>
+      <div class="notice" style="margin-top:14px">Additional documents may be requested depending on company type, ownership structure, CRA result and compliance review.</div>
+      <div class="actions"><button class="secondary" onclick="goKyb(5)">Back</button><button class="primary" onclick="buildKybReview();goKyb(7)">Continue</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="eyebrow">Review & submit</div>
+      <h1 class="title">Review your KYB application</h1>
+      <div class="sub">This is the application submission step. Review the information below before sending it to LCT Compliance.</div>
+      <div class="review-section">
+        <div class="review-head"><b>Company information</b><button class="edit" onclick="goKyb(1)">Edit</button></div>
+        <div class="review-row"><span>Legal name</span><strong id="kybRvName">—</strong></div>
+        <div class="review-row"><span>Registration</span><strong id="kybRvReg">—</strong></div>
+        <div class="review-row"><span>Company phone</span><strong id="kybRvPhone">—</strong></div>
+      </div>
+      <div class="review-section">
+        <div class="review-head"><b>Financial profile</b><button class="edit" onclick="goKyb(3)">Edit</button></div>
+        <div class="review-row"><span>Source of Funds</span><strong id="kybRvSof">—</strong></div>
+        <div class="review-row"><span>Source of Wealth</span><strong id="kybRvSow">—</strong></div>
+        <div class="review-row"><span>AUM</span><strong id="kybRvAum">—</strong></div>
+      </div>
+      <div class="review-section">
+        <div class="review-head"><b>Ownership & control</b><button class="edit" onclick="goKyb(5)">Edit</button></div>
+        <div class="review-row"><span>UBOs</span><strong>1 added</strong></div>
+        <div class="review-row"><span>Directors / representatives</span><strong>1 added</strong></div>
+        <div class="review-row"><span>PEP questions</span><strong id="kybRvPep">—</strong></div>
+      </div>
+      <div class="review-section">
+        <div class="review-head"><b>Documents</b><button class="edit" onclick="goKyb(6)">Edit</button></div>
+        <div class="review-row"><span>Corporate documents</span><strong id="kybRvDocs">0 / 4 uploaded</strong></div>
+      </div>
+      <label class="declaration"><input id="kybDeclaration" type="checkbox" onchange="refreshSubmitKyb()"/><div>I confirm that the information and documents provided are complete and accurate, and I am authorised to submit this application on behalf of the company.</div></label>
+      <div class="notice warning"><b>After submission</b><br>The KYB application will enter company registry checks, AML / sanctions screening, associated-party KYC and CRA review. Additional documents or information may be requested.</div>
+      <div class="actions"><button class="secondary" onclick="goKyb(6)">Back</button><button id="submitKybBtn" class="primary" onclick="submitKyb()" disabled>Submit KYB application</button></div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="done-panel">
+        <div class="done-icon" style="background:#fff7e8;color:#a86400">…</div>
+        <div class="eyebrow">Business KYB · Submitted</div>
+        <h1 class="title">Application submitted</h1>
+        <div class="sub">Your KYB form has been submitted to LCT. The company and associated parties are now under compliance review.</div>
+        <div class="status-list">
+          <div class="status-row done"><div class="status-dot">✓</div><span>KYB application form</span><small>Submitted</small></div>
+          <div class="status-row done"><div class="status-dot">✓</div><span>Company documents</span><small>Submitted</small></div>
+          <div class="status-row"><div class="status-dot">3</div><span>Company registry / AML</span><small>Reviewing</small></div>
+          <div class="status-row"><div class="status-dot">4</div><span>UBO / Director KYC</span><small>Reviewing</small></div>
+          <div class="status-row"><div class="status-dot">5</div><span>CRA</span><small>Reviewing</small></div>
+        </div>
+        <div class="notice">If additional information is required, LCT will notify the applicant and the request will appear in the KYB application status.</div>
+        <button class="primary" style="margin-top:20px" onclick="goKyb(9)">Simulate approval</button>
+        <button class="text-btn" style="margin-top:16px" onclick="goKyb(7)">View submitted form</button>
+      </div>
+    </section>
+
+    <section class="screen kyb-screen">
+      <div class="done-panel">
+        <div class="done-icon">✓</div>
+        <div class="eyebrow">Business KYB · Completed</div>
+        <h1 class="title">Business verification completed</h1>
+        <div class="sub">The company KYB application has been approved.</div>
+        <div class="fp-summary">
+          <div class="box"><small>Company registry</small><b>Approved</b></div>
+          <div class="box"><small>Corporate AML</small><b>Passed</b></div>
+          <div class="box"><small>UBO / Directors</small><b>Verified</b></div>
+          <div class="box"><small>CRA</small><b>Approved</b></div>
+        </div>
+        <button class="primary" onclick="toast('Prototype: open business dashboard')">Go to business dashboard</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Legal consent -->
+<div id="legalModal" class="modal-bg" onclick="backdrop(event)">
+  <div class="modal">
+    <div class="modal-head"><div><h2>Review legal agreements</h2><p>Read the agreements before creating your account.</p></div><button class="close" onclick="closeConsent()">✕</button></div>
+    <div id="legalScroll" class="legal-scroll" onscroll="checkScroll()">
+      <a class="legal-link" href="https://www.lct.tech/user-agreement" target="_blank">LCT User Agreement ↗</a>
+      <a class="legal-link" href="https://www.lct.tech/privacy-policy" target="_blank">Privacy Policy ↗</a>
+      <div class="legal-notice">Prototype interaction: production should show the approved legal text and retain document version, timestamp and acceptance evidence.</div>
+      <h3>1. Account and eligibility</h3><p>You must provide accurate account information and complete required due-diligence checks before regulated services are made available.</p>
+      <h3>2. Verification</h3><p>LCT may require identity or business verification, sanctions and PEP screening, source-of-funds information and other information required by applicable law or internal risk controls.</p>
+      <h3>3. Privacy and data processing</h3><p>Personal and business information may be processed for account administration, compliance, fraud prevention, security and regulatory obligations.</p>
+      <h3>4. Service availability</h3><p>Available products and account permissions may depend on jurisdiction, verification status, customer classification and risk profile.</p>
+      <h3>5. Record keeping</h3><p>LCT may retain records of the version of the agreements accepted, date and time of acceptance, and related onboarding evidence.</p>
+      <h3>6. Acknowledgement</h3><p>By approving below, you confirm that you have reviewed the LCT User Agreement and Privacy Policy and agree to be bound by the applicable terms.</p>
+      <div style="height:40px"></div>
+    </div>
+    <div class="modal-foot"><div id="scrollHint" class="scroll-hint">Scroll to the bottom to enable approval.</div><button id="agreeBtn" class="primary" disabled onclick="approveConsent()">Agree & continue</button></div>
+  </div>
+</div>
+
+<!-- Sumsub-like verification modal -->
+<div id="sdkModal" class="modal-bg" onclick="sdkBackdrop(event)">
+  <div class="modal sdk-modal">
+    <div class="modal-head"><div class="sdk-brand"><span class="sdk-logo">S</span><div><b>Verification</b><div style="font-size:11px;color:#98A2B3;margin-top:2px">Powered by Sumsub</div></div></div><button class="close" onclick="closeSdk()">✕</button></div>
+    <div class="sdk-body">
+      <div class="microsteps"><div class="micro on"></div><div class="micro"></div><div class="micro"></div><div class="micro"></div><div class="micro"></div></div>
+
+      <div class="sdk-stage active">
+        <div class="sdk-title">Verify your identity</div><div class="sdk-sub">You’re now in the Sumsub verification flow. Choose a valid identity document to continue.</div>
+        <div clas
