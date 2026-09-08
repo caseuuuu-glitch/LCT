@@ -1,0 +1,80 @@
+s="choice-list">
+          <div class="choice selected" onclick="selectSdkDoc(this,'Passport')"><div class="ico">P</div><div><h3>Passport</h3><p>Recommended for international customers.</p></div><div class="radio-ring"></div></div>
+          <div class="choice" onclick="selectSdkDoc(this,'Emirates ID')"><div class="ico">ID</div><div><h3>Emirates ID</h3><p>For UAE residents with a valid Emirates ID.</p></div><div class="radio-ring"></div></div>
+        </div>
+        <button class="primary" style="margin-top:18px" onclick="sdkNext()">Continue</button><div class="powered">Powered by Sumsub</div>
+      </div>
+
+      <div class="sdk-stage">
+        <div class="sdk-title">Capture your document</div><div class="sdk-sub">Make sure all four corners are visible and the image is clear.</div>
+        <div class="capture"><div class="capture-visual">DOCUMENT FRAME</div><b id="sdkDocLabel">Passport</b><p>Camera / secure file upload</p></div>
+        <div class="sdk-actions"><button class="secondary" onclick="sdkPrev()">Back</button><button class="primary" onclick="sdkNext()">Use this photo</button></div><div class="powered">Powered by Sumsub</div>
+      </div>
+
+      <div class="sdk-stage">
+        <div class="sdk-title">Complete face check</div><div class="sdk-sub">Look directly at the camera and follow the instructions on screen.</div>
+        <div class="capture"><div class="capture-visual">FACE FRAME</div><b>Liveness & face match</b><p>Usually takes less than a minute</p></div>
+        <div class="sdk-actions"><button class="secondary" onclick="sdkPrev()">Back</button><button class="primary" onclick="sdkNext()">Start face check</button></div><div class="powered">Powered by Sumsub</div>
+      </div>
+
+      <div class="sdk-stage">
+        <div class="sdk-title">Submit proof of address</div><div class="sdk-sub">Upload a recent document showing your full name and current residential address.</div>
+        <div class="capture"><div class="capture-visual">ADDRESS DOCUMENT</div><b>Utility bill · Bank statement · Government letter</b><p>Recent document preferred</p></div>
+        <div class="sdk-actions"><button class="secondary" onclick="sdkPrev()">Back</button><button class="primary" onclick="sdkNext()">Submit verification</button></div><div class="powered">Powered by Sumsub</div>
+      </div>
+
+      <div class="sdk-stage">
+        <div class="done-panel" style="padding:4px 0">
+          <div class="done-icon" style="background:#eefaf4;color:#12835b">✓</div>
+          <div class="sdk-title">Verification submitted</div>
+          <div class="sdk-sub">Sumsub has received your identity document, liveness check and proof of address. The result will now be returned to LCT.</div>
+          <div class="summary-box" style="margin:16px 0">
+            <div class="summary-row"><span>Identity document</span><b>Submitted</b></div>
+            <div class="summary-row"><span>Liveness / face match</span><b>Passed</b></div>
+            <div class="summary-row"><span>Proof of address</span><b>Submitted</b></div>
+            <div class="summary-row"><span>Provider</span><b>Sumsub</b></div>
+          </div>
+          <button class="primary" onclick="completeVerification()">Return to LCT</button>
+          <div class="powered">Powered by Sumsub</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="roleModal" class="modal-bg" onclick="roleBackdrop(event)">
+  <div class="modal">
+    <div class="modal-head"><div><h2 id="roleModalTitle">Key role</h2><p>Complete the key-role questionnaire for this person.</p></div><button class="close" onclick="closeRoleForm()">✕</button></div>
+    <div class="legal-scroll" style="max-height:62vh">
+      <div class="row2">
+        <div class="field"><label>Role</label><select id="roleType"><option>Ultimate Beneficial Owner</option><option>Director</option><option>Authorised Representative</option><option>Authorised Signatory</option></select></div>
+        <div class="field"><label>Full legal name</label><input id="roleName" placeholder="Enter full legal name"/></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Nationality</label><select><option>China</option><option>United Arab Emirates</option><option>Canada</option><option>Germany</option></select></div>
+        <div class="field"><label>Country of residence</label><select><option>United Arab Emirates</option><option>China</option><option>Germany</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Email</label><input placeholder="Email"/></div>
+        <div class="field"><label>Phone number</label><input placeholder="Phone"/></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Ownership %</label><input placeholder="If applicable"/></div>
+        <div class="field"><label>Nature of control</label><select><option>Direct ownership</option><option>Indirect ownership</option><option>Voting control</option><option>Other control</option></select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Source of Wealth</label><select><option>Employment income</option><option>Business ownership</option><option>Investments</option><option>Other</option></select></div>
+        <div class="field"><label>Place of Source of Wealth</label><select><option>China</option><option>United Arab Emirates</option><option>United Kingdom</option><option>Other</option></select></div>
+      </div>
+      <div class="field"><label>Is this person a PEP?</label><select><option>No</option><option>Yes</option></select></div>
+      <div class="field"><label>Is a family member or close associate a PEP?</label><select><option>No</option><option>Yes</option></select></div>
+      <div class="field"><label>Held a prominent public function in the last 12 months?</label><select><option>No</option><option>Yes</option></select></div>
+      <div class="notice">Natural persons can be routed to the Individual KYC / Sumsub verification flow after the role is saved.</div>
+    </div>
+    <div class="modal-foot"><button class="primary" onclick="saveRole()">Save key role</button></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
