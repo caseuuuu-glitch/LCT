@@ -1,0 +1,2490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CoinW Connect · Buy Now Prototype + PRD</title>
+<style>
+  :root{
+    --bg:#f7f8fc;
+    --card:#ffffff;
+    --line:#e7ebf3;
+    --lineStrong:#dbe2ee;
+    --text:#131722;
+    --muted:#7f8898;
+    --purple:#6c4cff;
+    --purple2:#8a73ff;
+    --green:#17a56a;
+    --red:#ef6674;
+    --shadow:0 10px 30px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+  .nav{height:72px;background:#fff;border-bottom:1px solid var(--line);padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+  .nav-left{display:flex;align-items:center;gap:32px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px}
+  .menu{display:flex;gap:26px;font-weight:700;color:#262b36}
+  .menu span{display:flex;align-items:center;gap:6px}
+  .promo{font-weight:800;color:#222}
+  .page{width:min(1760px,96vw);margin:18px auto 24px;display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:stretch}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+  .hero{padding:34px;min-height:0;height:100%}
+  .tag{display:inline-flex;padding:8px 14px;border-radius:999px;background:#f2edff;color:var(--purple);font-size:13px;font-weight:900;margin-bottom:16px}
+  h1{margin:0 0 10px 0;font-size:68px;line-height:1.02;letter-spacing:-2px}
+  .sub{color:#687285;font-size:22px;line-height:1.6;margin-bottom:22px;max-width:920px}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;align-items:center}
+  .chips .label{font-size:14px;color:#8b93a3;font-weight:900;margin-right:2px}
+  .chip{padding:10px 13px;border-radius:12px;border:1px solid var(--line);font-size:13px;font-weight:800;background:#fff}
+  .grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+  .inner-box{border:1px solid var(--line);border-radius:20px;padding:22px;min-height:310px}
+  .box-title{font-size:18px;font-weight:900;margin-bottom:10px}
+  .asset-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:14px;padding:15px 0;border-bottom:1px solid #eef2f7}
+  .asset-row:last-child{border-bottom:none}
+  .asset-left{display:flex;align-items:center;gap:12px;font-weight:800}
+  .asset-icon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900}
+  .btc{background:#f7931a}.eth{background:#627eea}.sol{background:#0f1729}.xrp{background:#214caa}.tusd{background:#0a59c4}
+  .up{color:var(--green);font-weight:800}.down{color:var(--red);font-weight:800}
+  .muted{color:#8a93a5;line-height:1.8;font-size:15px}
+
+  .panel{overflow:hidden;min-height:0;height:100%}
+  .tabs{display:grid;grid-template-columns:1fr 1fr;padding:10px 10px 0;background:#f4f6fb}
+  .tabs button{height:68px;border:none;background:transparent;border-top-left-radius:18px;border-top-right-radius:18px;font-size:28px;font-weight:900;color:#8a93a5;cursor:pointer}
+  .tabs button.active{background:#fff;color:#161a24}
+  .form{padding:30px}
+  .field{border:1px solid var(--lineStrong);background:#fbfcff;border-radius:20px;padding:18px 20px;margin-bottom:16px;position:relative}
+  .field-label{font-size:13px;color:#8a92a3;margin-bottom:10px}
+  .field-main{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .value{font-size:38px;font-weight:900;color:#171c28;outline:none;border:none;background:transparent;width:100%}
+  .selector{position:relative}
+  .currency-btn{min-width:145px;height:54px;border:1px solid var(--lineStrong);border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;cursor:pointer;font-weight:900;font-size:17px;color:#1d2330}
+  .currency-btn .left{display:flex;align-items:center;gap:10px}
+  .coin-dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:900}
+  .usd{background:#1a8b57}.eur{background:#2867c9}.gbp{background:#4f46e5}.aed{background:#0f9d85}.usdt{background:#0f8c6e}.btcDot{background:#f7931a}.ethDot{background:#627eea}.solDot{background:#0f1729}
+  .dropdown{position:absolute;right:0;top:62px;width:290px;background:#fff;border:1px solid var(--lineStrong);border-radius:18px;box-shadow:0 20px 50px rgba(12,18,28,.15);padding:12px;display:none;z-index:10}
+  .dropdown.show{display:block}
+  .search{width:100%;height:42px;border:1px solid var(--line);border-radius:12px;padding:0 12px;outline:none;margin-bottom:10px;font-size:14px}
+  .dropdown-list{max-height:240px;overflow:auto}
+  .dd-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 10px;border-radius:12px;cursor:pointer}
+  .dd-item:hover{background:#f7f8fc}
+  .dd-item.active{background:#f2edff}
+  .dd-left{display:flex;align-items:center;gap:10px}
+  .dd-name{font-weight:800;font-size:14px}
+  .dd-sub{font-size:12px;color:#8b93a3;margin-top:2px}
+  .estimate{font-size:14px;color:#8f97a7;margin:2px 0 16px}
+  .section-title{font-size:20px;font-weight:900;margin:18px 0 12px}
+  .pay-selector{border:1px solid var(--lineStrong);background:#fff;border-radius:18px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+  .pay-left{display:flex;align-items:center;gap:14px}
+  .pay-icon{width:36px;height:36px;border-radius:50%;background:#f3f5f9;display:grid;place-items:center;font-size:16px;font-weight:900}
+  .pay-title{font-size:19px;font-weight:900}
+  .pay-sub{font-size:13px;color:#8a92a3}
+  .cta{width:100%;height:62px;border:none;border-radius:18px;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff;font-size:20px;font-weight:900;cursor:pointer;margin-top:20px;box-shadow:0 10px 20px rgba(108,76,255,.18)}
+  .quotes{margin-top:16px}
+  .quote{border:1px solid var(--lineStrong);border-radius:18px;padding:18px;margin-bottom:12px;position:relative;cursor:pointer;background:#fff}
+  .quote.selected{border-color:#866fff;box-shadow:0 0 0 3px rgba(108,76,255,.1)}
+  .best{position:absolute;right:14px;top:14px;font-size:11px;font-weight:900;background:#ebfaf2;color:#12a05d;padding:4px 8px;border-radius:999px}
+  .qtop{display:flex;justify-content:space-between;gap:12px}
+  .vendor{font-size:19px;font-weight:900}
+  .meta{font-size:13px;color:#8a92a3;margin-top:4px}
+  .qmeta{display:flex;justify-content:space-between;font-size:13px;color:#97a0ae;margin-top:10px}
+  .review{border:1px solid var(--lineStrong);border-radius:18px;background:#fff;padding:18px;margin-top:14px}
+  .kv{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-bottom:1px dashed #e5e9f2;font-size:16px}
+  .kv:last-child{border-bottom:none}
+  .kv span{color:#7c8595}
+  .success{text-align:center;padding-top:14px}
+  .check{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:#ebfaf2;color:#11a161;font-size:34px;font-weight:900}
+
+  .overlay{position:fixed;inset:0;background:rgba(14,18,27,.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
+  .overlay.show{display:flex}
+  .modal{width:min(680px,96vw);background:#fff;border-radius:22px;padding:26px 28px;box-shadow:0 30px 90px rgba(18,25,38,.22)}
+  .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .modal-title{font-size:24px;font-weight:900}
+  .close{border:none;background:transparent;font-size:32px;line-height:1;color:#8a92a3;cursor:pointer}
+  .group-label{display:flex;justify-content:space-between;gap:16px;color:#808896;font-size:13px;margin:18px 0 10px}
+  .tag-sm{display:inline-block;margin-left:6px;font-size:10px;font-weight:800;background:#eff1f6;color:#77808f;padding:2px 6px;border-radius:999px}
+  .option{border:1px solid var(--lineStrong);border-radius:16px;padding:16px 18px;margin-bottom:12px;cursor:pointer}
+  .option.selected{border-color:#171c28;box-shadow:0 0 0 2px rgba(23,28,40,.04)}
+  .op-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .op-left{display:flex;align-items:center;gap:14px}
+  .op-icon{width:42px;height:42px;border-radius:12px;background:#f2f4f9;display:grid;place-items:center;font-weight:900;color:#171c28}
+  .op-title{font-size:16px;font-weight:900}
+  .op-sub{font-size:13px;color:#848c99;margin-top:4px}
+  .op-price{white-space:nowrap;font-size:15px;font-weight:900}
+  .modal-footer{display:flex;justify-content:flex-end;align-items:center;gap:16px;margin-top:16px}
+  .recv-small{font-size:15px;color:#475064}
+  .recv-big{font-size:22px;font-weight:900}
+  .confirm-btn{height:46px;border:none;border-radius:999px;background:#1f2431;color:#fff;padding:0 24px;font-weight:900;cursor:pointer}
+
+  @media (max-width: 1100px){ .page{grid-template-columns:1fr} }
+
+  .subnav{
+    height:66px;
+    background:#fff;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:flex-end;
+    gap:42px;
+    padding:0 52px;
+  }
+  .subnav-item{
+    position:relative;
+    height:66px;
+    display:flex;
+    align-items:center;
+    font-size:18px;
+    font-weight:800;
+    color:#8a8f99;
+    white-space:nowrap;
+  }
+  .subnav-item.active{color:#111}
+  .subnav-item.active:after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    width:30px;
+    height:4px;
+    border-radius:4px;
+    background:#111;
+    transform:translateX(-50%);
+  }
+  .new-badge{
+    position:absolute;
+    top:2px;
+    right:-28px;
+    background:#9cff4d;
+    color:#111;
+    font-size:10px;
+    line-height:1;
+    font-weight:900;
+    padding:4px 7px;
+    border-radius:999px;
+  }
+  .market-dual{
+    margin-top:32px;
+    border:1px solid var(--lineStrong);
+    border-radius:28px;
+    padding:28px 34px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:34px;
+    background:#fff;
+  }
+  .market-col:first-child{
+    padding-right:34px;
+    border-right:1px solid #e8ebf2;
+  }
+  .market-col-title{
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .market-line{
+    display:grid;
+    grid-template-columns:1fr auto auto;
+    gap:20px;
+    align-items:center;
+    min-height:58px;
+  }
+  .market-name{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    font-size:18px;
+    font-weight:800;
+  }
+  .market-price{
+    min-width:130px;
+    text-align:right;
+    font-size:17px;
+    font-weight:700;
+  }
+  .market-change{
+    min-width:88px;
+    text-align:right;
+    font-size:17px;
+    font-weight:700;
+  }
+  .hero-simple{
+    padding:30px 4px 0;
+  }
+  .hero-simple h1{
+    font-size:78px;
+    margin-bottom:28px;
+  }
+  .support-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:nowrap;
+    white-space:nowrap;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    margin-top:0;
+    margin-bottom:16px;
+    padding-bottom:2px;
+  }
+  .support-row::-webkit-scrollbar{display:none}
+  .support-label{
+    flex:0 0 auto;
+    font-size:24px;
+    font-weight:700;
+    color:#7f8899;
+  }
+  .brand-pay{
+    padding:0;
+    border:none;
+    background:transparent;
+    font-size:13px;
+    font-weight:900;
+    color:#111;
+  }
+  @media (max-width:1100px){
+    .subnav{padding:0 18px;gap:24px;overflow:auto}
+    .market-dual{grid-template-columns:1fr}
+    .market-col:first-child{padding-right:0;border-right:none;border-bottom:1px solid #e8ebf2;padding-bottom:24px}
+  }
+
+
+  .recommend-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px 10px;
+    border-radius:999px;
+    background:#f1edff;
+    color:#6c4cff;
+    font-size:12px;
+    font-weight:900;
+    line-height:1;
+    margin-left:auto;
+    margin-right:12px;
+    white-space:nowrap;
+  }
+
+
+  .pay-selector{
+    gap:16px;
+    padding-top:14px;
+    padding-bottom:14px;
+  }
+  .pay-right{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .best-price{
+    padding-left:18px;
+    border-left:1px solid var(--line);
+    min-width:170px;
+  }
+  .best-price-label{
+    font-size:11px;
+    color:#8a92a3;
+    margin-bottom:3px;
+  }
+  .best-price-value{
+    font-size:15px;
+    font-weight:900;
+    white-space:nowrap;
+  }
+
+  .quote{
+    padding:18px 20px;
+    min-height:112px;
+  }
+  .quote-grid{
+    display:grid;
+    grid-template-columns:minmax(210px,1fr) minmax(220px,auto) 20px;
+    gap:18px;
+    align-items:center;
+  }
+  .quote-provider{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:0;
+  }
+  .provider-logo{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    flex:0 0 auto;
+    font-size:18px;
+    font-weight:900;
+    color:#fff;
+    background:#171b26;
+  }
+  .provider-logo.coinw{
+    background:linear-gradient(135deg,#171822,#2c244f);
+    color:#8d77ff;
+  }
+  .provider-logo.mercuryo{
+    background:#10183d;
+  }
+  .provider-logo.moonpay{
+    background:linear-gradient(135deg,#5221ff,#8d53ff);
+  }
+  .provider-main{
+    min-width:0;
+  }
+  .provider-title-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    min-width:0;
+  }
+  .provider-title{
+    font-size:18px;
+    font-weight:900;
+    white-space:nowrap;
+  }
+  .best-inline{
+    display:inline-flex;
+    padding:4px 8px;
+    border-radius:999px;
+    background:#e9faef;
+    color:#0c9f5b;
+    font-size:11px;
+    font-weight:900;
+  }
+  .provider-route{
+    margin-top:3px;
+    font-size:12px;
+    color:#8a92a3;
+  }
+  .provider-meta{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-top:10px;
+    font-size:12px;
+    color:#677083;
+  }
+  .meta-divider{
+    width:1px;
+    height:14px;
+    background:#dfe4ee;
+  }
+  .quote-value{
+    text-align:right;
+    min-width:0;
+  }
+  .quote-receive{
+    font-size:18px;
+    line-height:1.25;
+    font-weight:900;
+    white-space:nowrap;
+  }
+  .quote-price{
+    margin-top:6px;
+    font-size:13px;
+    color:#7f8898;
+    white-space:nowrap;
+  }
+  .quote-chevron{
+    font-size:24px;
+    color:#6f7787;
+    text-align:right;
+  }
+  .quote.selected{
+    background:#fbfaff;
+  }
+  .quote .best{
+    display:none;
+  }
+  @media(max-width:760px){
+    .quote-grid{
+      grid-template-columns:1fr 18px;
+    }
+    .quote-value{
+      grid-column:1 / 2;
+      text-align:left;
+      padding-left:58px;
+    }
+    .quote-chevron{
+      grid-column:2;
+      grid-row:1 / span 2;
+      align-self:center;
+    }
+    .pay-right{
+      gap:8px;
+    }
+    .best-price{
+      display:none;
+    }
+  }
+
+
+  .support-row{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin:0 0 14px;
+  }
+  .support-label{
+    font-size:14px;
+    color:#9aa1ad;
+    font-weight:600;
+    margin-right:2px;
+  }
+  .payment-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:0;
+    border:none;
+    background:transparent;
+    font-size:13px;
+    font-weight:600;
+    color:#343a46;
+    line-height:1;
+  }
+  .payment-mark{
+    width:auto;
+    height:auto;
+    border-radius:0;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:800;
+    background:transparent !important;
+    flex:0 0 auto;
+  }
+  .visa-mark{color:#2545c7}
+  .mc-mark{color:#e35d2f}
+  .apple-mark{color:#111}
+  .google-mark{color:#4285f4}
+  .revolut-mark{color:#111}
+  .samsung-mark{color:#1428a0}
+
+
+  .seo-section{
+    width:min(1760px,96vw);
+    margin:0 auto 56px;
+  }
+  .seo-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:18px;
+  }
+  .seo-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:24px;
+    min-height:180px;
+  }
+  .seo-card h3{
+    margin:0 0 10px;
+    font-size:20px;
+  }
+  .seo-card p{
+    margin:0;
+    color:#7f8898;
+    font-size:14px;
+    line-height:1.7;
+  }
+  .seo-kicker{
+    font-size:12px;
+    color:#6c4cff;
+    font-weight:900;
+    margin-bottom:8px;
+  }
+  .seo-faq{
+    margin-top:18px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:24px;
+  }
+  .seo-faq h3{margin:0 0 16px;font-size:22px}
+  .faq-item{
+    padding:16px 0;
+    border-bottom:1px solid #edf0f5;
+  }
+  .faq-item:last-child{border-bottom:none}
+  .faq-q{font-weight:800;font-size:15px}
+  .faq-a{font-size:14px;color:#7f8898;margin-top:6px;line-height:1.65}
+
+  .auth-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(14,18,27,.52);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:200;
+  }
+  .auth-overlay.show{display:flex}
+  .auth-modal{
+    width:min(470px,96vw);
+    background:#fff;
+    border-radius:22px;
+    box-shadow:0 30px 90px rgba(18,25,38,.24);
+    padding:26px;
+  }
+  .auth-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+  }
+  .auth-title{
+    font-size:24px;
+    font-weight:900;
+  }
+  .auth-close{
+    border:none;
+    background:transparent;
+    font-size:30px;
+    color:#8a92a3;
+    cursor:pointer;
+  }
+  .auth-tabs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    background:#f3f5f9;
+    border-radius:14px;
+    padding:4px;
+    margin-bottom:18px;
+  }
+  .auth-tabs button{
+    height:42px;
+    border:none;
+    border-radius:10px;
+    background:transparent;
+    color:#7b8495;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .auth-tabs button.active{
+    background:#fff;
+    color:#131722;
+    box-shadow:0 2px 8px rgba(16,24,40,.07);
+  }
+  .auth-label{
+    font-size:12px;
+    color:#7f8898;
+    font-weight:700;
+    margin-bottom:7px;
+  }
+  .auth-input{
+    width:100%;
+    height:50px;
+    border:1px solid var(--lineStrong);
+    border-radius:14px;
+    padding:0 14px;
+    outline:none;
+    font-size:15px;
+    margin-bottom:12px;
+  }
+  .auth-input:focus{border-color:#8b74ff}
+  .auth-terms{
+    font-size:12px;
+    color:#8a92a3;
+    line-height:1.5;
+    margin:4px 0 14px;
+  }
+  .auth-primary{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--purple),var(--purple2));
+    color:#fff;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .auth-divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#a0a7b4;
+    font-size:12px;
+    margin:18px 0 12px;
+  }
+  .auth-divider:before,.auth-divider:after{
+    content:"";
+    height:1px;
+    background:#edf0f5;
+    flex:1;
+  }
+  .social-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  .social-btn{
+    height:46px;
+    border:1px solid var(--lineStrong);
+    background:#fff;
+    border-radius:13px;
+    font-weight:800;
+    cursor:pointer;
+  }
+  .auth-note{
+    margin-top:14px;
+    padding:12px;
+    border-radius:12px;
+    background:#faf8ff;
+    color:#6b58d8;
+    font-size:12px;
+    line-height:1.5;
+  }
+
+  @media(max-width:900px){
+    .seo-grid{grid-template-columns:1fr}
+  }
+
+
+
+
+  .market-lite{
+    margin-top:28px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#fff;
+    overflow:hidden;
+  }
+  .market-lite-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 18px;
+    border-bottom:1px solid #edf0f5;
+  }
+  .market-lite-title{
+    font-size:16px;
+    font-weight:900;
+  }
+  .market-lite-note{
+    font-size:10px;
+    color:#a0a7b4;
+  }
+  .market-lite-list{
+    display:block;
+  }
+  .market-lite-item{
+    display:grid;
+    grid-template-columns:1fr 140px 72px;
+    gap:18px;
+    align-items:center;
+    padding:13px 18px;
+    border-bottom:1px solid #edf0f5;
+  }
+  .market-lite-item:last-child{border-bottom:none}
+  .market-lite-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .market-lite-symbol{
+    font-size:14px;
+    font-weight:900;
+  }
+  .market-lite-price{
+    font-size:14px;
+    font-weight:800;
+    text-align:right;
+  }
+  .market-lite-change{
+    font-size:12px;
+    font-weight:800;
+    text-align:right;
+  }
+
+  .steps-lite{
+    margin-top:22px;
+    border-top:1px solid #eef1f6;
+    padding-top:22px;
+  }
+  .steps-title{
+    font-size:17px;
+    font-weight:900;
+    margin-bottom:14px;
+  }
+  .steps-row{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+  }
+  .step-lite{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px 0;
+  }
+  .step-num{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:#f1edff;
+    color:#6c4cff;
+    font-size:12px;
+    font-weight:900;
+    flex:0 0 auto;
+  }
+  .step-name{
+    font-size:14px;
+    font-weight:900;
+    margin-bottom:3px;
+  }
+  .step-desc{
+    font-size:12px;
+    color:#8a92a3;
+    line-height:1.45;
+  }
+
+  .trust-strip{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:0;
+    border:1px solid #eef1f6;
+    border-radius:16px;
+    overflow:hidden;
+    background:#fafbfe;
+  }
+  .trust-item{
+    padding:15px 16px;
+    border-right:1px solid #eef1f6;
+  }
+  .trust-item:last-child{border-right:none}
+  .trust-label{
+    font-size:11px;
+    color:#9aa1ae;
+    margin-bottom:4px;
+  }
+  .trust-value{
+    font-size:14px;
+    font-weight:900;
+    color:#252b37;
+  }
+
+  @media(max-width:900px){
+    .steps-row,
+    .trust-strip{grid-template-columns:1fr}
+    .trust-item{border-right:none;border-bottom:1px solid #eef1f6}
+    .trust-item:last-child{border-bottom:none}
+  }
+
+
+  .market-lite-item{
+    cursor:pointer;
+    transition:background .15s ease,border-color .15s ease;
+  }
+  .market-lite-item:hover{
+    background:#fafbff;
+  }
+  .market-lite-item.selected-asset{
+    background:#f7f4ff;
+  }
+  .market-lite-item.selected-asset .market-lite-symbol{
+    color:#6c4cff;
+  }
+  .market-lite-head{
+    background:#fcfcfe;
+  }
+
+
+  /* Popular table alignment fix */
+  .market-lite-head,
+  .market-lite-item{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 160px 100px !important;
+    column-gap:20px !important;
+    align-items:center;
+    padding-left:18px !important;
+    padding-right:18px !important;
+  }
+  .market-lite-head{
+    justify-content:initial !important;
+    padding-top:14px !important;
+    padding-bottom:14px !important;
+  }
+  .market-lite-title{
+    text-align:left;
+  }
+  .market-lite-col,
+  .market-lite-price,
+  .market-lite-change{
+    text-align:right !important;
+    width:auto !important;
+    min-width:0 !important;
+  }
+  .market-lite-col{
+    font-size:12px;
+    color:#9aa1ad;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .market-lite-price{
+    white-space:nowrap;
+  }
+  .market-lite-change{
+    white-space:nowrap;
+  }
+
+
+  .howto-section{
+    width:min(1760px,96vw);
+    margin:0 auto 28px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:44px 54px 40px;
+    color:#151922;
+  }
+  .howto-title{
+    text-align:center;
+    font-size:26px;
+    font-weight:900;
+    margin:0 0 36px;
+  }
+  .howto-steps{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:30px;
+    align-items:start;
+  }
+  .howto-step{
+    position:relative;
+    text-align:center;
+    padding:0 18px;
+  }
+  .howto-step:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    top:16px;
+    right:-15px;
+    width:calc(100% - 58px);
+    border-top:1px dashed #d7dce5;
+    transform:translateX(50%);
+    z-index:0;
+  }
+  .howto-icon{
+    width:34px;
+    height:34px;
+    border:1.5px solid #151922;
+    border-radius:10px;
+    margin:0 auto 16px;
+    display:grid;
+    place-items:center;
+    font-size:16px;
+    font-weight:900;
+    position:relative;
+    z-index:1;
+    background:#fff;
+    color:#151922;
+  }
+  .howto-copy{
+    color:#5f6878;
+    font-size:15px;
+    line-height:1.5;
+    max-width:290px;
+    margin:0 auto;
+  }
+  @media(max-width:900px){
+    .howto-section{
+      padding:30px 22px;
+    }
+    .howto-steps{
+      grid-template-columns:1fr;
+      gap:22px;
+    }
+    .howto-step:not(:last-child)::after{
+      display:none;
+    }
+  }
+
+
+  @media (max-width:1100px){
+    .page{align-items:start}
+    .hero,.panel{height:auto}
+  }
+
+
+  /* ===== Mobile responsive redesign ===== */
+  .mobile-only{display:none}
+
+  @media (max-width: 768px){
+    body{background:#f7f8fc}
+
+    /* Main navigation */
+    .nav{
+      height:56px;
+      padding:0 14px;
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .nav-left{gap:0}
+    .brand{
+      font-size:18px;
+      gap:8px;
+    }
+    .brand svg{width:24px;height:24px}
+    .menu,.promo{display:none}
+    .mobile-only{display:flex}
+    .mobile-nav-actions{
+      margin-left:auto;
+      align-items:center;
+      gap:16px;
+      font-size:20px;
+      color:#171b26;
+    }
+
+    /* Secondary buy crypto nav becomes horizontally scrollable */
+    .subnav{
+      height:48px;
+      padding:0 14px;
+      gap:24px;
+      overflow-x:auto;
+      overflow-y:hidden;
+      align-items:flex-end;
+      scrollbar-width:none;
+      white-space:nowrap;
+    }
+    .subnav::-webkit-scrollbar{display:none}
+    .subnav-item{
+      height:48px;
+      font-size:14px;
+      flex:0 0 auto;
+    }
+    .subnav-item.active:after{
+      width:24px;
+      height:3px;
+    }
+    .new-badge{
+      top:0;
+      right:-22px;
+      font-size:8px;
+      padding:3px 5px;
+    }
+
+    /* Main content stacks */
+    .page{
+      width:auto;
+      margin:12px 12px 16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .hero,
+    .panel{
+      height:auto !important;
+      min-height:0 !important;
+      border-radius:18px;
+      box-shadow:none;
+    }
+
+    /* Hero card */
+    .hero{
+      padding:20px 16px 16px;
+      order:1;
+    }
+    .hero-simple{
+      padding:0;
+    }
+    .hero-simple h1,
+    h1{
+      font-size:36px !important;
+      line-height:1.08;
+      letter-spacing:-1.2px;
+      margin:0 0 16px;
+    }
+
+    /* supported methods */
+    .support-row{
+      gap:12px;
+      flex-wrap:nowrap;
+      white-space:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      margin-bottom:16px;
+      padding-bottom:2px;
+    }
+    .support-row::-webkit-scrollbar{display:none}
+    .support-label{
+      width:auto;
+      flex:0 0 auto;
+      margin:0;
+      font-size:16px;
+      font-weight:700;
+      color:#7f8899;
+    }
+    .payment-badge{
+      flex:0 0 auto;
+      font-size:14px;
+      gap:4px;
+    }
+
+    /* Popular market */
+    .market-lite{
+      margin-top:12px;
+      border-radius:16px;
+    }
+    .market-lite-head,
+    .market-lite-item{
+      grid-template-columns:minmax(0,1fr) 90px 72px !important;
+      column-gap:10px !important;
+      padding-left:14px !important;
+      padding-right:14px !important;
+    }
+    .market-lite-head{
+      padding-top:12px !important;
+      padding-bottom:12px !important;
+    }
+    .market-lite-title{font-size:14px}
+    .market-lite-col{font-size:10px}
+    .market-lite-item{padding-top:11px;padding-bottom:11px}
+    .market-lite-left{gap:8px}
+    .market-lite-symbol{font-size:13px}
+    .market-lite-price{font-size:12px}
+    .market-lite-change{font-size:11px}
+    .market-lite-item .asset-icon{
+      width:26px !important;
+      height:26px !important;
+      font-size:11px;
+    }
+
+    /* Hide desktop-only static fill blocks from hero to keep mobile concise */
+    .steps-lite,
+    .trust-strip{
+      display:none;
+    }
+
+    /* Trading form first on mobile */
+    .panel{
+      order:0;
+    }
+    .tabs{
+      padding:6px 6px 0;
+    }
+    .tabs button{
+      height:50px;
+      font-size:18px;
+      border-top-left-radius:14px;
+      border-top-right-radius:14px;
+    }
+    .form{
+      padding:16px;
+    }
+
+    .field{
+      border-radius:16px;
+      padding:14px;
+      margin-bottom:12px;
+    }
+    .field-label{font-size:11px;margin-bottom:8px}
+    .field-main{gap:8px}
+    .value{
+      font-size:28px;
+      min-width:0;
+    }
+
+    /* Currency selector */
+    .currency-btn{
+      min-width:104px;
+      height:44px;
+      border-radius:13px;
+      padding:0 10px;
+      font-size:14px;
+    }
+    .currency-btn .coin-dot{
+      width:24px;
+      height:24px;
+      font-size:11px;
+    }
+    .dropdown{
+      position:fixed;
+      left:12px;
+      right:12px;
+      top:auto;
+      bottom:16px;
+      width:auto;
+      max-height:66vh;
+      border-radius:20px;
+      z-index:120;
+      box-shadow:0 18px 60px rgba(16,24,40,.2);
+    }
+    .dropdown-list{max-height:45vh}
+
+    .estimate{
+      margin:0 0 14px;
+      font-size:11px;
+      line-height:1.4;
+    }
+
+    .section-title{
+      font-size:16px;
+      margin:16px 0 10px;
+    }
+
+    .pay-selector{
+      border-radius:15px;
+      padding:13px 14px !important;
+    }
+    .pay-left{gap:10px}
+    .pay-icon{
+      width:34px;
+      height:34px;
+      font-size:14px;
+    }
+    .pay-title{font-size:16px}
+    .pay-sub{font-size:11px}
+    .recommend-badge{
+      font-size:10px;
+      padding:5px 8px;
+      margin-right:6px;
+    }
+
+    .cta{
+      height:50px;
+      margin-top:14px;
+      border-radius:15px;
+      font-size:16px;
+      box-shadow:none;
+    }
+
+    /* Quote cards */
+    .quotes{margin-top:12px}
+    .quote{
+      min-height:0;
+      padding:14px;
+      border-radius:15px;
+    }
+    .quote-grid{
+      grid-template-columns:1fr 18px;
+      gap:10px;
+    }
+    .provider-logo{
+      width:36px;
+      height:36px;
+      font-size:14px;
+    }
+    .provider-title{font-size:15px}
+    .provider-route{font-size:11px}
+    .provider-meta{
+      font-size:11px;
+      gap:8px;
+      margin-top:7px;
+    }
+    .quote-value{
+      grid-column:1 / 2;
+      text-align:left;
+      padding-left:50px;
+    }
+    .quote-receive{font-size:15px}
+    .quote-price{font-size:11px}
+    .quote-chevron{
+      grid-column:2;
+      grid-row:1 / span 2;
+      align-self:center;
+      font-size:20px;
+    }
+
+    /* How to buy */
+    .howto-section{
+      width:auto;
+      margin:0 12px 16px;
+      border-radius:18px;
+      padding:22px 18px;
+    }
+    .howto-title{
+      font-size:20px;
+      margin-bottom:22px;
+    }
+    .howto-steps{
+      grid-template-columns:1fr;
+      gap:0;
+    }
+    .howto-step{
+      display:grid;
+      grid-template-columns:34px 1fr;
+      gap:12px;
+      text-align:left;
+      padding:10px 0;
+      align-items:start;
+    }
+    .howto-step:not(:last-child)::after{
+      display:block;
+      left:16px;
+      right:auto;
+      top:44px;
+      width:1px;
+      height:calc(100% - 24px);
+      border:none;
+      border-left:1px dashed #d7dce5;
+      transform:none;
+    }
+    .howto-icon{
+      width:34px;
+      height:34px;
+      margin:0;
+    }
+    .howto-copy{
+      max-width:none;
+      margin:5px 0 0;
+      font-size:13px;
+      color:#5f6878;
+    }
+
+    /* SEO content stacks and is visually lighter */
+    .seo-section{
+      width:auto;
+      margin:0 12px 28px;
+    }
+    .seo-grid{
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+    .seo-card{
+      min-height:0;
+      padding:18px;
+      border-radius:16px;
+    }
+    .seo-card h3{
+      font-size:17px;
+      margin-bottom:6px;
+    }
+    .seo-card p{font-size:12px}
+    .seo-faq{
+      margin-top:10px;
+      padding:18px;
+      border-radius:16px;
+    }
+    .seo-faq h3{font-size:18px}
+    .faq-item{padding:12px 0}
+    .faq-q{font-size:13px}
+    .faq-a{font-size:12px}
+
+    /* Auth / payment modal -> mobile bottom sheet */
+    .auth-overlay,
+    .overlay{
+      align-items:flex-end;
+      padding:0;
+    }
+    .auth-modal,
+    .modal{
+      width:100%;
+      max-width:none;
+      max-height:88vh;
+      overflow:auto;
+      border-radius:22px 22px 0 0;
+      padding:20px 16px 24px;
+    }
+    .auth-title,
+    .modal-title{
+      font-size:20px;
+    }
+    .option{
+      padding:13px 14px;
+      border-radius:14px;
+    }
+    .op-icon{
+      width:36px;
+      height:36px;
+    }
+    .op-title{font-size:14px}
+    .op-sub{font-size:11px}
+    .op-price{font-size:13px}
+
+    .social-grid{
+      grid-template-columns:1fr;
+      gap:8px;
+    }
+
+    /* Review / success */
+    .review{
+      border-radius:15px;
+      padding:14px;
+    }
+    .kv{
+      font-size:13px;
+      padding:10px 0;
+    }
+    .success h2{font-size:24px !important}
+  }
+
+
+  /* ===== PRD side drawer ===== */
+  .prd-fab{
+    position:fixed;right:20px;bottom:22px;z-index:180;
+    height:48px;padding:0 18px;border:none;border-radius:999px;
+    background:#121722;color:#fff;font-weight:900;font-size:14px;
+    box-shadow:0 12px 30px rgba(18,23,34,.20);cursor:pointer;
+  }
+  .prd-fab span{color:#9b86ff;margin-left:6px}
+  .prd-backdrop{position:fixed;inset:0;background:rgba(17,23,34,.26);display:none;z-index:190}
+  .prd-backdrop.show{display:block}
+  .prd-drawer{
+    position:fixed;top:0;right:0;width:min(700px,92vw);height:100vh;background:#fff;
+    z-index:200;transform:translateX(100%);transition:transform .25s ease;
+    border-left:1px solid #e8ebf2;box-shadow:-28px 0 60px rgba(16,24,40,.14);
+    display:flex;flex-direction:column;
+  }
+  .prd-drawer.open{transform:translateX(0)}
+  .prd-head{
+    flex:0 0 auto;padding:20px 24px 16px;border-bottom:1px solid #edf0f5;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:#fff;
+  }
+  .prd-eyebrow{font-size:11px;letter-spacing:.08em;color:#6c4cff;font-weight:900;text-transform:uppercase}
+  .prd-head h2{font-size:25px;line-height:1.15;margin:5px 0 6px;letter-spacing:-.5px}
+  .prd-meta{font-size:12px;color:#8992a3}
+  .prd-close{border:none;background:#f4f5f8;color:#222937;width:36px;height:36px;border-radius:50%;font-size:22px;cursor:pointer}
+  .prd-body{display:grid;grid-template-columns:170px 1fr;min-height:0;flex:1}
+  .prd-toc{overflow:auto;border-right:1px solid #edf0f5;padding:14px 10px;background:#fbfbfd}
+  .prd-toc a{display:block;padding:8px 10px;border-radius:9px;color:#6c7483;font-size:12px;font-weight:700;text-decoration:none;line-height:1.25}
+  .prd-toc a:hover{background:#f1edff;color:#6c4cff}
+  .prd-content{overflow:auto;padding:22px 24px 50px;scroll-behavior:smooth}
+  .prd-section{padding:2px 0 24px;border-bottom:1px solid #eef1f5;margin-bottom:22px}
+  .prd-section:last-child{border-bottom:none}
+  .prd-section h3{font-size:20px;margin:0 0 12px;letter-spacing:-.2px}
+  .prd-section h4{font-size:15px;margin:18px 0 8px}
+  .prd-section p{font-size:13px;color:#5f6878;line-height:1.7;margin:8px 0}
+  .prd-section ul,.prd-section ol{margin:8px 0 8px 18px;padding:0;color:#4f5868;font-size:13px;line-height:1.7}
+  .prd-section li{margin:4px 0}
+  .prd-callout{background:#f8f6ff;border:1px solid #e4ddff;border-radius:12px;padding:12px 14px;margin:10px 0;color:#4f43a3;font-size:13px;line-height:1.6}
+  .prd-note{background:#fafbfc;border:1px solid #e8ebf1;border-radius:12px;padding:12px 14px;margin:10px 0;color:#687183;font-size:12px;line-height:1.6}
+  .prd-table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid #e8ebf1;border-radius:12px;overflow:hidden;margin:10px 0 14px;font-size:12px}
+  .prd-table th,.prd-table td{padding:9px 10px;border-bottom:1px solid #edf0f4;border-right:1px solid #edf0f4;vertical-align:top;line-height:1.45;text-align:left}
+  .prd-table th{background:#f8f9fb;color:#4b5361;font-weight:900}
+  .prd-table td{color:#5d6676}
+  .prd-table tr:last-child td{border-bottom:none}.prd-table th:last-child,.prd-table td:last-child{border-right:none}
+  .prd-tag{display:inline-flex;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:900;background:#f1edff;color:#6c4cff}
+  .prd-tag.p0{background:#fff0f1;color:#e34b5a}.prd-tag.p1{background:#fff7e9;color:#c27c10}.prd-tag.done{background:#ebfaf2;color:#14965d}
+  .flowline{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}
+  .flowbox{border:1px solid #e1e5ed;background:#fff;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:800;color:#4d5665}
+  .flowarrow{color:#9ca3af;font-size:12px}
+  @media(max-width:720px){
+    .prd-fab{right:12px;bottom:14px;height:44px;padding:0 15px}
+    .prd-drawer{width:100vw}
+    .prd-body{display:block}
+    .prd-toc{display:none}
+    .prd-head{padding:16px}
+    .prd-content{padding:18px 16px 44px}
+    .prd-head h2{font-size:22px}
+    .prd-table{font-size:11px}
+    .prd-table th,.prd-table td{padding:8px}
+  }
+
+</style>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="brand">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M22 3H8.5C4.9 3 2 5.9 2 9.5v13C2 26.1 4.9 29 8.5 29H22v-6H10c-1.7 0-3-1.3-3-3V12c0-1.7 1.3-3 3-3h12V3Z" fill="#6C4CFF"/>
+          <rect x="18" y="9" width="12" height="14" rx="2" fill="#6C4CFF"/>
+        </svg>
+        <span>CoinW</span>
+      </div>
+      <div class="menu">
+        <span>Buy Crypto ⌄</span>
+        <span>Markets ⌄</span>
+        <span>Trade ⌄</span>
+        <span>Futures ⌄</span>
+        <span>Earn ⌄</span>
+        <span>More ⌄</span>
+      </div>
+    </div>
+    <div class="promo">🎁 CWC Early Bird Earn</div>
+  
+</div>
+
+  <div class="subnav">
+    <div class="subnav-item active">Buy &amp; Sell</div>
+    <div class="subnav-item">Deposit<span class="new-badge">New</span></div>
+    <div class="subnav-item">Withdraw</div>
+    <div class="subnav-item">CoinW Card</div>
+    <div class="subnav-item">OTC</div>
+    <div class="subnav-item">P2P</div>
+  </div>
+
+  <div class="page">
+
+    
+<div class="card hero">
+      <div class="hero-simple">
+        <h1 id="heroTitle">Buy USDT with USD</h1>
+
+        <div class="support-row">
+          <span class="support-label">Supported</span>
+          <span class="payment-badge"><span class="payment-mark visa-mark">VISA</span></span>
+          <span class="payment-badge"><span class="payment-mark mc-mark">●●</span></span>
+          <span class="payment-badge"><span class="payment-mark apple-mark"> Pay</span></span>
+          <span class="payment-badge"><span class="payment-mark google-mark">G Pay</span></span>
+          <span class="payment-badge"><span class="payment-mark revolut-mark">Revolut</span></span>
+          <span class="payment-badge"><span class="payment-mark samsung-mark">Samsung Pay</span></span>
+        </div>
+
+        
+        <div class="market-lite">
+          <div class="market-lite-head">
+            <div class="market-lite-title">Popular</div>
+            <div class="market-lite-col">Price</div>
+            <div class="market-lite-col">24h Change</div>
+          </div>
+
+          <div class="market-lite-list">
+            <div class="market-lite-item" id="popular-BTC" onclick="pickPopularAsset('BTC')">
+              <div class="market-lite-left">
+                <div class="asset-icon btc" style="width:30px;height:30px">₿</div>
+                <div class="market-lite-symbol">BTC</div>
+              </div>
+              <div class="market-lite-price">$77,160.00</div>
+              <div class="market-lite-change down">-0.99%</div>
+            </div>
+
+            <div class="market-lite-item" id="popular-ETH" onclick="pickPopularAsset('ETH')">
+              <div class="market-lite-left">
+                <div class="asset-icon eth" style="width:30px;height:30px">Ξ</div>
+                <div class="market-lite-symbol">ETH</div>
+              </div>
+              <div class="market-lite-price">$2,485.15</div>
+              <div class="market-lite-change down">-1.20%</div>
+            </div>
+
+            <div class="market-lite-item" id="popular-SOL" onclick="pickPopularAsset('SOL')">
+              <div class="market-lite-left">
+                <div class="asset-icon sol" style="width:30px;height:30px">S</div>
+                <div class="market-lite-symbol">SOL</div>
+              </div>
+              <div class="market-lite-price">$101.07</div>
+              <div class="market-lite-change down">-0.77%</div>
+            </div>
+
+            <div class="market-lite-item" id="popular-XRP" onclick="pickPopularAsset('XRP')">
+              <div class="market-lite-left">
+                <div class="asset-icon xrp" style="width:30px;height:30px">X</div>
+                <div class="market-lite-symbol">XRP</div>
+              </div>
+              <div class="market-lite-price">$1.40</div>
+              <div class="market-lite-change up">+0.34%</div>
+            </div>
+
+            <div class="market-lite-item" id="popular-TUSD" onclick="pickPopularAsset('TUSD')">
+              <div class="market-lite-left">
+                <div class="asset-icon tusd" style="width:30px;height:30px">T</div>
+                <div class="market-lite-symbol">TUSD</div>
+              </div>
+              <div class="market-lite-price">$0.9996</div>
+              <div class="market-lite-change down">-0.02%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="card panel">
+      <div class="tabs">
+        <button id="buyTab" class="active" onclick="setMode('buy')">Buy</button>
+        <button id="sellTab" onclick="setMode('sell')">Sell</button>
+      </div>
+      <div class="form" id="desktopForm"></div>
+    </div>
+  </div>
+
+  
+
+  <section class="howto-section">
+    <h2 class="howto-title">How to Buy Cryptocurrencies?</h2>
+    <div class="howto-steps">
+      <div class="howto-step">
+        <div class="howto-icon">▣</div>
+        <div class="howto-copy">Select your preferred crypto and choose the amount</div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-icon">▤</div>
+        <div class="howto-copy">Select your payment method</div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-icon">✓</div>
+        <div class="howto-copy">Complete your payment and receive your tokens</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seo-section" id="seoGrowthModule">
+    <div class="seo-grid">
+      <div class="seo-card">
+        <div class="seo-kicker">SEO CONTENT SLOT</div>
+        <h3>Buy Crypto with Card</h3>
+        <p>Reserve this module for localized search content such as “buy USDT with card”, “buy crypto with Apple Pay”, and market-specific fiat landing content.</p>
+      </div>
+      <div class="seo-card">
+        <div class="seo-kicker">LOCAL FIAT SEO</div>
+        <h3>Buy with USD, EUR, GBP and AED</h3>
+        <p>Use dynamic landing-page copy by fiat market, including supported payment methods, funding time, limits, and route-specific user education.</p>
+      </div>
+      <div class="seo-card">
+        <div class="seo-kicker">PROGRAMMATIC SEO</div>
+        <h3>Asset × Fiat Landing Pages</h3>
+        <p>Reserve templates for BTC/USD, USDT/EUR, ETH/GBP and other asset-fiat combinations to support scalable organic acquisition.</p>
+      </div>
+    </div>
+
+    <div class="seo-faq">
+      <h3>SEO FAQ Module</h3>
+      <div class="faq-item">
+        <div class="faq-q">How can I buy crypto on CoinW?</div>
+        <div class="faq-a">Use the Buy & Sell flow, choose your fiat currency and crypto asset, then compare available payment options before completing registration or sign in.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which payment methods are supported?</div>
+        <div class="faq-a">The layout reserves space for cards, Apple Pay, Google Pay, Revolut Pay, bank transfer, and other local payment methods by market.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I buy crypto with EUR, GBP or AED?</div>
+        <div class="faq-a">Yes. The page structure supports localized fiat selection and can surface market-specific payment routes, copy, FAQs, and SEO metadata.</div>
+      </div>
+    </div>
+  </section>
+
+<div class="overlay" id="paymentModal">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-title">Select Payment Method</div>
+        <button class="close" onclick="closePaymentModal()">×</button>
+      </div>
+
+      <div class="group-label">
+        <span>CoinW Connect</span>
+        <span>Price per USD</span>
+      </div>
+
+      <div class="option" id="option-card" onclick="selectPayment('Debit/Credit Card')">
+        <div class="op-row">
+          <div class="op-left">
+            <div class="op-icon">💳</div>
+            <div>
+              <div class="op-title">Debit/Credit Card</div>
+              <div class="op-sub">Visa, Mastercard</div>
+            </div>
+          </div>
+          <div class="op-price">1.0482 USD</div>
+        </div>
+      </div>
+
+      <div class="option" id="option-applepay" onclick="selectPayment('Apple Pay')">
+        <div class="op-row">
+          <div class="op-left">
+            <div class="op-icon"></div>
+            <div>
+              <div class="op-title">Apple Pay</div>
+              <div class="op-sub">Fast checkout with Apple Pay</div>
+            </div>
+          </div>
+          <div class="op-price">1.0478 USD</div>
+        </div>
+      </div>
+
+      <div class="option" id="option-googlepay" onclick="selectPayment('Google Pay')">
+        <div class="op-row">
+          <div class="op-left">
+            <div class="op-icon">G</div>
+            <div>
+              <div class="op-title">Google Pay</div>
+              <div class="op-sub">Fast checkout with Google Pay</div>
+            </div>
+          </div>
+          <div class="op-price">1.0479 USD</div>
+        </div>
+      </div>
+
+      <div class="group-label">
+        <span>Third Party <span class="tag-sm">Extra KYC</span></span>
+        <span></span>
+      </div>
+      <div class="option" id="option-mercuryo" onclick="selectPayment('Mercuryo')">
+        <div class="op-row">
+          <div class="op-left">
+            <div class="op-icon">M</div>
+            <div>
+              <div class="op-title">Mercuryo</div>
+              <div class="op-sub">Visa, Mastercard, Apple Pay, Google Pay, Revolut Pay</div>
+            </div>
+          </div>
+          <div class="op-price">1.0206 USD</div>
+        </div>
+      </div>
+      <div class="option" id="option-moonpay" onclick="selectPayment('MoonPay')">
+        <div class="op-row">
+          <div class="op-left">
+            <div class="op-icon">◉</div>
+            <div>
+              <div class="op-title">MoonPay</div>
+              <div class="op-sub">Visa, Mastercard, Apple Pay, Google Pay, Samsung Pay</div>
+            </div>
+          </div>
+          <div class="op-price">1.0142 USD</div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="justify-content:flex-end">
+        <button class="confirm-btn" onclick="applyPaymentSelection()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="auth-overlay" id="authModal">
+    <div class="auth-modal">
+      <div class="auth-head">
+        <div class="auth-title" id="authTitle">Welcome to CoinW</div>
+        <button class="auth-close" onclick="closeAuthModal()">×</button>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="registerTab" class="active" onclick="switchAuth('register')">Sign up</button>
+        <button id="loginTab" onclick="switchAuth('login')">Log in</button>
+      </div>
+
+      <div id="authBody">
+        <div class="auth-label">Email / Phone number</div>
+        <input class="auth-input" placeholder="Email / Phone number" />
+
+        <div class="auth-label">Referral code (Optional)</div>
+        <input class="auth-input" placeholder="Referral code" />
+
+        <div class="auth-terms">
+          By continuing, you agree to CoinW's User Agreement and Privacy Policy.
+        </div>
+
+        <button class="auth-primary" onclick="mockAuthSuccess()">Create account</button>
+
+        <div class="auth-divider">Or continue with</div>
+
+        <div class="social-grid">
+          <button class="social-btn">Google</button>
+          <button class="social-btn">Apple</button>
+          <button class="social-btn">Telegram</button>
+        </div>
+
+        <div class="auth-note">
+          After sign up / login, return directly to the Buy flow with the selected fiat, asset and payment preference preserved.
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const fiatOptions = [
+  { code:'USD', name:'US Dollar', icon:'$', cls:'usd' },
+  { code:'EUR', name:'Euro', icon:'€', cls:'eur' },
+  { code:'GBP', name:'British Pound', icon:'£', cls:'gbp' },
+  { code:'AED', name:'UAE Dirham', icon:'د', cls:'aed' }
+];
+
+const cryptoOptions = [
+  { code:'USDT', name:'Tether', icon:'₮', cls:'usdt' },
+  { code:'BTC', name:'Bitcoin', icon:'₿', cls:'btcDot' },
+  { code:'ETH', name:'Ethereum', icon:'Ξ', cls:'ethDot' },
+  { code:'SOL', name:'Solana', icon:'S', cls:'solDot' },
+  { code:'XRP', name:'XRP', icon:'X', cls:'xrp' },
+  { code:'TUSD', name:'TrueUSD', icon:'T', cls:'tusd' }
+];
+
+const state = {
+  mode: 'buy',
+  amount: '1111',
+  selectedFiat: fiatOptions[0],
+  selectedCrypto: cryptoOptions[0],
+  paymentLabel: 'Debit/Credit Card',
+  paymentSub: 'Visa, Mastercard, Apple Pay, Google Pay',
+  selectedPayment: 'Debit/Credit Card',
+  step: 'form',
+  quoteSelected: 0
+};
+
+const providerConfig = [
+  {name:'CoinW Connect', route:'Native card route', fee:'1.8%', eta:'~2 min', factor:1.0000, best:true, logo:'coinw'},
+  {name:'Mercuryo', route:'Third-party ramp', fee:'2.2%', eta:'~4 min', factor:1.0110, best:false, logo:'mercuryo'},
+  {name:'MoonPay', route:'Third-party ramp', fee:'2.6%', eta:'~4 min', factor:1.0168, best:false, logo:'moonpay'}
+];
+
+const usdAssetPrice = {
+  USDT: 1.0482,
+  BTC: 77160.00,
+  ETH: 2485.15,
+  SOL: 101.07,
+  XRP: 1.40,
+  TUSD: 0.9996
+};
+
+const fiatFx = {
+  USD: 1.0000,
+  EUR: 0.9200,
+  GBP: 0.7900,
+  AED: 3.6725
+};
+
+function getProviderQuotes(){
+  const asset = state.selectedCrypto.code;
+  const fiat = state.selectedFiat.code;
+  const basePrice = (usdAssetPrice[asset] || 1) * (fiatFx[fiat] || 1);
+
+  return providerConfig.map(p => {
+    const effectivePrice = basePrice * p.factor;
+    const receiveNumber = Number(state.amount || 0) / effectivePrice;
+    const receive = formatAssetAmount(receiveNumber, asset) + ' ' + asset;
+    return {
+      ...p,
+      price: effectivePrice,
+      receive
+    };
+  });
+}
+
+function formatAssetAmount(value, asset){
+  if(asset === 'USDT') return value.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:8});
+  if(asset === 'BTC') return value.toLocaleString(undefined,{minimumFractionDigits:6,maximumFractionDigits:8});
+  if(asset === 'ETH') return value.toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:6});
+  return value.toLocaleString(undefined,{minimumFractionDigits:3,maximumFractionDigits:5});
+}
+
+function formatPrice(value, fiat){
+  const digits = value >= 1000 ? 2 : value >= 10 ? 2 : 4;
+  return value.toLocaleString(undefined,{minimumFractionDigits:digits,maximumFractionDigits:digits}) + ' ' + fiat;
+}
+
+function getPriceLabel(q){
+  return '1 ' + state.selectedCrypto.code + ' ≈ ' + formatPrice(q.price, state.selectedFiat.code);
+}
+
+function getReceiveValue(){
+  if (state.mode === 'sell') return '1088.42';
+  const map = {
+    USDT:'1059.91223049',
+    BTC:'0.01444',
+    ETH:'0.4493',
+    SOL:'11.12',
+    XRP:'793.57',
+    TUSD:'1059.47'
+  };
+  return map[state.selectedCrypto.code] || '1059.91223049';
+}
+
+function updateHeroText(){
+  const title = document.getElementById('heroTitle');
+
+  if (state.mode === 'buy') {
+    title.textContent = `Buy ${state.selectedCrypto.code} with ${state.selectedFiat.code}`;
+  } else {
+    title.textContent = `Sell ${state.selectedCrypto.code} for ${state.selectedFiat.code}`;
+  }
+}
+
+function setMode(mode){
+  state.mode = mode;
+  state.step = 'form';
+  render();
+}
+function openPaymentModal(){
+  document.getElementById('paymentModal').classList.add('show');
+  highlightPayment();
+}
+function closePaymentModal(){
+  document.getElementById('paymentModal').classList.remove('show');
+}
+function selectPayment(name){
+  state.selectedPayment = name;
+  highlightPayment();
+}
+function highlightPayment(){
+  ['card','applepay','googlepay','mercuryo','moonpay'].forEach(k=>{
+    const el = document.getElementById('option-'+k);
+    if(el) el.classList.remove('selected');
+  });
+  if(state.selectedPayment === 'Debit/Credit Card') document.getElementById('option-card').classList.add('selected');
+  if(state.selectedPayment === 'Apple Pay') document.getElementById('option-applepay').classList.add('selected');
+  if(state.selectedPayment === 'Google Pay') document.getElementById('option-googlepay').classList.add('selected');
+  if(state.selectedPayment === 'Mercuryo') document.getElementById('option-mercuryo').classList.add('selected');
+  if(state.selectedPayment === 'MoonPay') document.getElementById('option-moonpay').classList.add('selected');
+}
+function applyPaymentSelection(){
+  if(state.selectedPayment === 'Debit/Credit Card'){
+    state.paymentLabel = 'Debit/Credit Card';
+    state.paymentSub = 'Visa, Mastercard';
+  } else if(state.selectedPayment === 'Apple Pay'){
+    state.paymentLabel = 'Apple Pay';
+    state.paymentSub = '';
+  } else if(state.selectedPayment === 'Google Pay'){
+    state.paymentLabel = 'Google Pay';
+    state.paymentSub = '';
+  } else if(state.selectedPayment === 'Mercuryo'){
+    state.paymentLabel = 'Mercuryo';
+    state.paymentSub = 'Third-party • extra KYC';
+  } else {
+    state.paymentLabel = 'MoonPay';
+    state.paymentSub = 'Third-party • extra KYC';
+  }
+  closePaymentModal();
+  render();
+}
+function showQuotes(){ state.step = 'quotes'; render(); }
+function chooseQuote(index){ state.quoteSelected = index; render(); }
+function showReview(){ state.step = 'review'; render(); }
+function showSuccess(){ state.step = 'success'; render(); }
+function backToForm(){ state.step = 'form'; render(); }
+function backToQuotes(){ state.step = 'quotes'; render(); }
+
+function currencySelector(type, selected){
+  const options = type === 'fiat' ? fiatOptions : cryptoOptions;
+  return `
+    <div class="selector">
+      <button class="currency-btn" onclick="toggleDropdown('${type}', event)">
+        <div class="left">
+          <span class="coin-dot ${selected.cls}">${selected.icon}</span>
+          <span>${selected.code}</span>
+        </div>
+        <span>⌄</span>
+      </button>
+      <div class="dropdown" id="${type}Dropdown">
+        <input class="search" id="${type}Search" placeholder="Search ${type}..." oninput="filterDropdown('${type}', this.value)" />
+        <div class="dropdown-list" id="${type}List">
+          ${options.map(item => `
+            <div class="dd-item ${selected.code === item.code ? 'active' : ''}" data-key="${(item.code + ' ' + item.name).toLowerCase()}" onclick="selectCurrency('${type}', '${item.code}')">
+              <div class="dd-left">
+                <span class="coin-dot ${item.cls}">${item.icon}</span>
+                <div>
+                  <div class="dd-name">${item.code}</div>
+                  <div class="dd-sub">${item.name}</div>
+                </div>
+              </div>
+              <div style="font-size:12px;color:#8b93a3">${selected.code === item.code ? 'Selected' : ''}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleDropdown(type, e){
+  e.stopPropagation();
+  const target = document.getElementById(type + 'Dropdown');
+  const other = document.getElementById((type === 'fiat' ? 'crypto' : 'fiat') + 'Dropdown');
+  if(other) other.classList.remove('show');
+  target.classList.toggle('show');
+  const input = document.getElementById(type + 'Search');
+  if (target.classList.contains('show') && input) {
+    input.value = '';
+    filterDropdown(type, '');
+    setTimeout(() => input.focus(), 0);
+  }
+}
+
+function filterDropdown(type, keyword){
+  const list = document.querySelectorAll('#' + type + 'List .dd-item');
+  const key = keyword.trim().toLowerCase();
+  list.forEach(item => {
+    const text = item.getAttribute('data-key');
+    item.style.display = text.includes(key) ? 'flex' : 'none';
+  });
+}
+
+function selectCurrency(type, code){
+  const options = type === 'fiat' ? fiatOptions : cryptoOptions;
+  const found = options.find(x => x.code === code);
+  if(type === 'fiat') state.selectedFiat = found;
+  else state.selectedCrypto = found;
+  document.getElementById(type + 'Dropdown').classList.remove('show');
+  render();
+}
+
+
+function pickPopularAsset(code){
+  const found = cryptoOptions.find(x => x.code === code);
+  if(!found) return;
+  state.selectedCrypto = found;
+  state.step = 'form';
+  render();
+  document.querySelectorAll('.market-lite-item').forEach(el => el.classList.remove('selected-asset'));
+  const row = document.getElementById('popular-' + code);
+  if(row) row.classList.add('selected-asset');
+}
+
+function updatePopularSelection(){
+  document.querySelectorAll('.market-lite-item').forEach(el => el.classList.remove('selected-asset'));
+  const row = document.getElementById('popular-' + state.selectedCrypto.code);
+  if(row) row.classList.add('selected-asset');
+}
+
+document.addEventListener('click', function(e){
+  const fiat = document.getElementById('fiatDropdown');
+  const crypto = document.getElementById('cryptoDropdown');
+  if(fiat && !e.target.closest('.selector')) fiat.classList.remove('show');
+  if(crypto && !e.target.closest('.selector')) crypto.classList.remove('show');
+});
+
+function buildDesktop(){
+  const receiveValue = getReceiveValue();
+
+  if(state.step === 'success'){
+    const q = getProviderQuotes()[state.quoteSelected];
+    return `
+      <div class="success">
+        <div class="check">✓</div>
+        <h2 style="margin:0 0 8px;font-size:34px">Order submitted</h2>
+        <div style="color:#8690a1;font-size:17px">Your order has been created successfully.</div>
+      </div>
+      <div class="review">
+        <div class="kv"><span>Order Type</span><b>${state.mode === 'buy' ? 'Buy' : 'Sell'}</b></div>
+        <div class="kv"><span>Spend</span><b>${state.amount} ${state.selectedFiat.code}</b></div>
+        <div class="kv"><span>Asset</span><b>${state.selectedCrypto.code}</b></div>
+        <div class="kv"><span>Payment Method</span><b>${state.paymentLabel}</b></div>
+        <div class="kv"><span>Provider</span><b>${q.name}</b></div>
+        <div class="kv"><span>${state.mode === 'buy' ? 'Receive' : 'Payout'}</span><b>${q.receive}</b></div>
+      </div>
+      <button class="cta" onclick="backToForm()">Start new order</button>
+    `;
+  }
+
+  if(state.step === 'review'){
+    const q = getProviderQuotes()[state.quoteSelected];
+    return `
+      <button style="border:none;background:transparent;color:#394154;margin-bottom:12px;cursor:pointer;font-weight:800;font-size:16px" onclick="backToQuotes()">← Back</button>
+      <div class="review">
+        <div class="kv"><span>Order Type</span><b>${state.mode === 'buy' ? 'Buy' : 'Sell'}</b></div>
+        <div class="kv"><span>Spend</span><b>${state.amount} ${state.selectedFiat.code}</b></div>
+        <div class="kv"><span>Asset</span><b>${state.selectedCrypto.code}</b></div>
+        <div class="kv"><span>Payment Method</span><b>${state.paymentLabel}</b></div>
+        <div class="kv"><span>Provider</span><b>${q.name}</b></div>
+        <div class="kv"><span>${state.mode === 'buy' ? 'Receive' : 'Payout'}</span><b>${q.receive}</b></div>
+        <div class="kv"><span>Fee</span><b>${q.fee}</b></div>
+        <div class="kv"><span>ETA</span><b>${q.eta}</b></div>
+      </div>
+      <button class="cta" onclick="showSuccess()">Confirm</button>
+    `;
+  }
+
+  const common = `
+    <div class="field">
+      <div class="field-label">${state.mode === 'buy' ? 'Spend' : 'Sell'}</div>
+      <div class="field-main">
+        <input class="value" value="${state.amount}" />
+        ${currencySelector('fiat', state.selectedFiat)}
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">${state.mode === 'buy' ? 'Receive' : 'Receive fiat'}</div>
+      <div class="field-main">
+        <input class="value" value="${receiveValue}" />
+        ${state.mode === 'buy'
+          ? currencySelector('crypto', state.selectedCrypto)
+          : currencySelector('fiat', state.selectedFiat)}
+      </div>
+    </div>
+
+    <div class="estimate">Estimated price ${state.selectedCrypto.code} route preview is based on ${state.selectedFiat.code}.</div>
+
+    <div class="section-title">${state.mode === 'buy' ? 'Pay with' : 'Cash out to'}</div>
+    <div class="pay-selector" onclick="openPaymentModal()">
+      <div class="pay-left">
+        <div class="pay-icon">💳</div>
+        <div>
+          <div class="pay-title">${state.paymentLabel}</div>
+          ${state.paymentSub ? `<div class="pay-sub">${state.paymentSub}</div>` : ''}
+        </div>
+      </div>
+      <div class="pay-right">
+        <span class="recommend-badge">Recommended</span>
+        <div style="font-size:20px">⌄</div>
+      </div>
+    </div>
+  `;
+
+  if(state.step === 'form'){
+    return common + `<button class="cta" onclick="openAuthModal()">Buy Now</button>`;
+  }
+
+  return common + `
+    <div class="quotes">
+      <div class="section-title">Available quotes</div>
+      ${getProviderQuotes().map((q, i) => `
+        <div class="quote ${state.quoteSelected === i ? 'selected' : ''}" onclick="chooseQuote(${i})">
+          <div class="quote-grid">
+            <div class="quote-provider">
+              <div class="provider-logo ${q.logo}">
+                ${q.logo === 'coinw' ? 'W' : q.name === 'Mercuryo' ? 'M' : '●'}
+              </div>
+              <div class="provider-main">
+                <div class="provider-title-row">
+                  <div class="provider-title">${q.name}</div>
+                  ${q.best ? '<span class="best-inline">Best</span>' : ''}
+                </div>
+                <div class="provider-route">${q.route}</div>
+                <div class="provider-meta">
+                  <span>Fee ${q.fee}</span>
+                  <span class="meta-divider"></span>
+                  <span>${q.eta}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="quote-value">
+              <div class="quote-receive">${q.receive}</div>
+              <div class="quote-price">${getPriceLabel(q)}</div>
+            </div>
+
+            <div class="quote-chevron">›</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <button class="cta" onclick="showReview()">Continue</button>
+  `;
+}
+
+function render(){
+  document.getElementById('buyTab').classList.toggle('active', state.mode === 'buy');
+  document.getElementById('sellTab').classList.toggle('active', state.mode === 'sell');
+  document.getElementById('desktopForm').innerHTML = buildDesktop();
+  updateHeroText();
+}
+
+function openAuthModal(){
+  document.getElementById('authModal').classList.add('show');
+  switchAuth('register');
+}
+function closeAuthModal(){
+  document.getElementById('authModal').classList.remove('show');
+}
+function switchAuth(mode){
+  const registerTab = document.getElementById('registerTab');
+  const loginTab = document.getElementById('loginTab');
+  const title = document.getElementById('authTitle');
+  const body = document.getElementById('authBody');
+
+  registerTab.classList.toggle('active', mode === 'register');
+  loginTab.classList.toggle('active', mode === 'login');
+
+  if(mode === 'register'){
+    title.textContent = 'Welcome to CoinW';
+    body.innerHTML = `
+      <div class="auth-label">Email / Phone number</div>
+      <input class="auth-input" placeholder="Email / Phone number" />
+
+      <div class="auth-label">Referral code (Optional)</div>
+      <input class="auth-input" placeholder="Referral code" />
+
+      <div class="auth-terms">
+        By continuing, you agree to CoinW's User Agreement and Privacy Policy.
+      </div>
+
+      <button class="auth-primary" onclick="mockAuthSuccess()">Create account</button>
+
+      <div class="auth-divider">Or continue with</div>
+
+      <div class="social-grid">
+        <button class="social-btn">Google</button>
+        <button class="social-btn">Apple</button>
+        <button class="social-btn">Telegram</button>
+      </div>
+
+      <div class="auth-note">
+        After sign up, return directly to the Buy flow with the selected fiat, asset and payment preference preserved.
+      </div>
+    `;
+  }else{
+    title.textContent = 'Log in to CoinW';
+    body.innerHTML = `
+      <div class="auth-label">Email / Phone number</div>
+      <input class="auth-input" placeholder="Email / Phone number" />
+
+      <div class="auth-label">Password</div>
+      <input class="auth-input" type="password" placeholder="Password" />
+
+      <button class="auth-primary" onclick="mockAuthSuccess()">Log in</button>
+
+      <div class="auth-divider">Or continue with</div>
+
+      <div class="social-grid">
+        <button class="social-btn">Google</button>
+        <button class="social-btn">Apple</button>
+        <button class="social-btn">Telegram</button>
+      </div>
+
+      <div class="auth-note">
+        After login, return directly to the Buy flow with the selected fiat, asset and payment preference preserved.
+      </div>
+    `;
+  }
+}
+function mockAuthSuccess(){
+  closeAuthModal();
+  state.step = 'quotes';
+  render();
+}
+
+
+function openPRD(){
+  document.getElementById('prdDrawer').classList.add('open');
+  document.getElementById('prdBackdrop').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closePRD(){
+  document.getElementById('prdDrawer').classList.remove('open');
+  document.getElementById('prdBackdrop').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape') closePRD();});
+
+render();
+</script>
+
+  <button class="prd-fab" onclick="openPRD()">PRD <span>v1.0</span></button>
+  <div class="prd-backdrop" id="prdBackdrop" onclick="closePRD()"></div>
+  <aside class="prd-drawer" id="prdDrawer" aria-label="CoinW Connect Buy Now PRD">
+    <div class="prd-head">
+      <div>
+        <div class="prd-eyebrow">Product Requirement Document</div>
+        <h2>CoinW Connect · Buy Now</h2>
+        <div class="prd-meta">V1.0 · Draft · 2026-09-15 · Web + App · Product / Design / Engineering / Compliance</div>
+      </div>
+      <button class="prd-close" onclick="closePRD()">×</button>
+    </div>
+    <div class="prd-body">
+      <nav class="prd-toc">
+        <a href="#prd-summary">01. 项目概述</a>
+        <a href="#prd-goals">02. 目标与指标</a>
+        <a href="#prd-scope">03. 范围</a>
+        <a href="#prd-users">04. 用户与场景</a>
+        <a href="#prd-flow">05. E2E Flow</a>
+        <a href="#prd-modules">06. 页面模块</a>
+        <a href="#prd-rules">07. 核心规则</a>
+        <a href="#prd-connect">08. CoinW Connect</a>
+        <a href="#prd-auth">09. 登录/KYC</a>
+        <a href="#prd-payment">10. 支付与报价</a>
+        <a href="#prd-order">11. 订单状态</a>
+        <a href="#prd-exception">12. 异常场景</a>
+        <a href="#prd-risk">13. 风控合规</a>
+        <a href="#prd-data">14. 数据埋点</a>
+        <a href="#prd-seo">15. SEO 增长</a>
+        <a href="#prd-tech">16. 技术/API</a>
+        <a href="#prd-admin">17. 后台运营</a>
+        <a href="#prd-i18n">18. 多语言</a>
+        <a href="#prd-acceptance">19. 验收标准</a>
+        <a href="#prd-roadmap">20. Roadmap</a>
+        <a href="#prd-open">21. 待确认项</a>
+      </nav>
+      <main class="prd-content">
+
+        <section class="prd-section" id="prd-summary">
+          <h3>01. 项目概述</h3>
+          <div class="prd-callout"><b>一句话：</b>CoinW Connect 是 CoinW 自有品牌的法币买卖入口。用户在 CoinW 内选择币种、法币与支付方式，CoinW 在后台路由至合适 PSP / On-ramp Provider，尽可能保持原生 UI、复用 KYC，并由 CoinW 统一展示报价、订单状态与售后入口。</div>
+          <h4>背景</h4>
+          <p>当前买币能力依赖不同第三方通道，用户可能面临跳转、二次 KYC、支付方式分散、报价不可比较、品牌割裂等问题。新方案希望把“Vendor 能力”包装成“CoinW Connect 能力”，让支付方式而不是 Provider 成为用户第一认知。</p>
+          <h4>核心原则</h4>
+          <ul>
+            <li><b>CoinW First：</b>用户看到的是 CoinW 的页面、价格、订单与客服入口。</li>
+            <li><b>Payment Method First：</b>优先展示 Card / Apple Pay / Google Pay / Bank Transfer 等支付方式，Provider 退到底层。</li>
+            <li><b>Native before Redirect：</b>优先原生 API / SDK / KYC Reliance；无法原生时再使用跳转型通道。</li>
+            <li><b>One Router：</b>前台一套流程，后台按国家、法币、成本、成功率、KYC 摩擦、限额、可用性路由。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-goals">
+          <h3>02. 产品目标与成功指标</h3>
+          <table class="prd-table">
+            <tr><th>目标</th><th>指标建议</th><th>说明</th></tr>
+            <tr><td>提升买币转化</td><td>Visit → Buy Now +10%~20%</td><td>减少第三方品牌、跳转与信息噪音。</td></tr>
+            <tr><td>提升支付成功率</td><td>Payment Success +5 pct</td><td>通过多 Provider 路由与失败切换实现。</td></tr>
+            <tr><td>降低 KYC 摩擦</td><td>重复 KYC 率下降 ≥50%</td><td>优先 KYC Reliance / Identity Share。</td></tr>
+            <tr><td>降低单通道依赖</td><td>关键市场 ≥2 可用通道</td><td>主通道 + fallback。</td></tr>
+            <tr><td>SEO 获客</td><td>新增 Asset×Fiat Landing Pages</td><td>支持 BTC/USD、USDT/EUR 等 programmatic SEO。</td></tr>
+          </table>
+          <p><b>North Star：</b>Completed Buy/Sell Orders / Qualified Buy Page Visitors。</p>
+        </section>
+
+        <section class="prd-section" id="prd-scope">
+          <h3>03. 产品范围</h3>
+          <table class="prd-table">
+            <tr><th>阶段</th><th>范围</th><th>不做</th></tr>
+            <tr><td><span class="prd-tag p0">P0</span></td><td>Buy、主流法币、主流币、Card、Apple Pay、Google Pay、登录注册 Gate、报价、订单结果、Web/App 响应式。</td><td>P2P、复杂 OTC、大额询价、独立钱包。</td></tr>
+            <tr><td><span class="prd-tag p1">P1</span></td><td>Sell / Off-ramp、Bank Transfer、更多本地支付、Router 规则、失败自动切通道、订单中心。</td><td>自建全球 acquiring。</td></tr>
+            <tr><td>P2</td><td>Recurring Buy、智能路由、个性化推荐、地域化 SEO Landing、会员费率/优惠。</td><td>—</td></tr>
+          </table>
+        </section>
+
+        <section class="prd-section" id="prd-users">
+          <h3>04. 用户与核心场景</h3>
+          <table class="prd-table">
+            <tr><th>用户</th><th>核心诉求</th><th>关键体验</th></tr>
+            <tr><td>未登录新用户</td><td>快速知道能否买、支持什么、价格大致多少</td><td>可浏览、配置金额；点击 Buy Now 后注册/登录。</td></tr>
+            <tr><td>已登录未 KYC</td><td>完成最短认证后买币</td><td>保留已选资产/法币/支付方式，完成 KYC 后回流。</td></tr>
+            <tr><td>已 KYC 用户</td><td>最少步骤完成购买</td><td>尽量复用 KYC，不二次输入资料。</td></tr>
+            <tr><td>高频用户</td><td>价格、成功率、到账速度</td><td>默认推荐最优支付方式，未来支持最近使用方式。</td></tr>
+          </table>
+        </section>
+
+        <section class="prd-section" id="prd-flow">
+          <h3>05. E2E User Flow</h3>
+          <h4>未登录 Buy Flow</h4>
+          <div class="flowline"><span class="flowbox">Buy & Sell</span><span class="flowarrow">→</span><span class="flowbox">选择 Fiat / Asset</span><span class="flowarrow">→</span><span class="flowbox">选择 Payment Method</span><span class="flowarrow">→</span><span class="flowbox">Buy Now</span><span class="flowarrow">→</span><span class="flowbox">注册/登录</span><span class="flowarrow">→</span><span class="flowbox">KYC 判断</span><span class="flowarrow">→</span><span class="flowbox">Quote</span><span class="flowarrow">→</span><span class="flowbox">支付</span><span class="flowarrow">→</span><span class="flowbox">Success</span></div>
+          <h4>已登录且 KYC 完成</h4>
+          <div class="flowline"><span class="flowbox">配置订单</span><span class="flowarrow">→</span><span class="flowbox">Buy Now</span><span class="flowarrow">→</span><span class="flowbox">Quote / Provider Route</span><span class="flowarrow">→</span><span class="flowbox">3DS / Wallet Pay</span><span class="flowarrow">→</span><span class="flowbox">Order Processing</span><span class="flowarrow">→</span><span class="flowbox">Credited</span></div>
+          <div class="prd-note">登录 / KYC 前用户已选择的 fiat、asset、amount、payment_method 必须保存并在成功后恢复，禁止用户重新填写。</div>
+        </section>
+
+        <section class="prd-section" id="prd-modules">
+          <h3>06. 页面模块详细需求</h3>
+          <table class="prd-table">
+            <tr><th>模块</th><th>需求</th><th>优先级</th></tr>
+            <tr><td>一级导航</td><td>沿用 CoinW 全站导航；Buy Crypto 为主入口。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>二级导航</td><td>Buy & Sell / Deposit / Withdraw / CoinW Card / OTC / P2P；当前页高亮。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>动态 H1</td><td>Buy {Asset} with {Fiat}；选择 EUR/BTC 后标题实时变更。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Supported</td><td>单行轻量展示 Visa / Mastercard / Apple Pay / Google Pay / Revolut / Samsung Pay；移动端横滑不换行。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Popular</td><td>竖向 5 个资产；Symbol / Price / 24h Change；点击后联动购买币种。使用一次批量行情接口，不逐币请求。</td><td><span class="prd-tag p1">P1</span></td></tr>
+            <tr><td>Buy / Sell Tabs</td><td>切换订单方向；首期可只开放 Buy，Sell 灰度。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Spend</td><td>金额输入 + Fiat 下拉；支持搜索；校验 min/max。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Receive</td><td>展示预计获得数量 + Crypto 下拉；Quote 前为 estimate，Quote 后为锁价值。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Pay with</td><td>默认展示推荐支付方式；只显示 Payment Method，不展示冗余报价信息。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Payment Modal</td><td>Card、Apple Pay、Google Pay 独立；Third Party 作为 fallback；支持 Extra KYC 标识。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>Buy Now</td><td>未登录直接拉起注册/登录；已登录进入 Quote/支付。</td><td><span class="prd-tag p0">P0</span></td></tr>
+            <tr><td>How to Buy</td><td>白底三步说明：Choose → Pay → Receive；静态，无接口。</td><td><span class="prd-tag p1">P1</span></td></tr>
+            <tr><td>SEO Modules</td><td>预留正文、FAQ、Asset×Fiat Landing 模板。</td><td><span class="prd-tag p1">P1</span></td></tr>
+          </table>
+        </section>
+
+        <section class="prd-section" id="prd-rules">
+          <h3>07. 核心业务规则</h3>
+          <h4>资产与法币</h4>
+          <ul>
+            <li>前端只展示后端配置为 <b>enabled</b> 的 Asset×Fiat 组合。</li>
+            <li>不同国家可配置不同 fiat、asset、payment_method、provider。</li>
+            <li>金额输入必须同时满足 CoinW 产品限额、Provider 限额、支付方式限额和 KYC tier 限额。</li>
+          </ul>
+          <h4>Recommended 规则</h4>
+          <p>首期建议按“可用 > 用户摩擦 > 成功率 > 成本 > 到账速度”排序。若无法计算综合评分，默认 Card 为 Recommended；Wallet Pay 可在设备支持时前置。</p>
+          <h4>价格显示</h4>
+          <ul>
+            <li>配置页显示 Estimate，不承诺锁价。</li>
+            <li>真正 Quote 必须包含 provider_quote_id、expires_at、effective_price、fee、receive_amount。</li>
+            <li>Quote 过期后必须自动刷新，禁止使用过期价格提交。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-connect">
+          <h3>08. CoinW Connect 架构与 Provider 抽象</h3>
+          <div class="prd-callout"><b>产品定义：</b>CoinW Connect 不是单一 PSP，而是 CoinW 自己的 Payment / On-ramp Experience Layer + Routing Layer。</div>
+          <table class="prd-table">
+            <tr><th>层级</th><th>职责</th></tr>
+            <tr><td>CoinW UX</td><td>资产/法币选择、Payment Method、认证入口、报价、订单、结果页、客服。</td></tr>
+            <tr><td>CoinW Router</td><td>Eligibility、Provider 选择、Quote 聚合、失败切换、限额、成本与成功率策略。</td></tr>
+            <tr><td>Provider Connector</td><td>PSP / On-ramp API、SDK、KYC Reliance、Webhook、Settlement。</td></tr>
+            <tr><td>Ledger / Asset</td><td>订单关联 UID、资产入账、对账、异常补单。</td></tr>
+          </table>
+          <h4>Provider 接入最低要求</h4>
+          <ul>
+            <li>优先 Full API / Headless / Embedded SDK，可隐藏第三方品牌。</li>
+            <li>支持 Quote、Order、Status、Webhook；Card 场景支持 3DS / Tokenization。</li>
+            <li>优先支持 KYC Reliance / Identity Sharing；若必须二次 KYC，前端明确 Extra KYC。</li>
+            <li>候选可包括：Banxa Native、OSL Pay OpenAPI、Transak Whitelabel、Nuvei、Checkout.com + Crypto Provider 等，最终以商务/牌照/覆盖确认结果为准。</li>
+          </ul>
+          <div class="prd-note">前台默认不以 Provider 品牌作为一级选择；若法律披露或 Third Party 跳转要求展示，再作为二级信息露出。</div>
+        </section>
+
+        <section class="prd-section" id="prd-auth">
+          <h3>09. 登录、注册与 KYC</h3>
+          <table class="prd-table">
+            <tr><th>状态</th><th>Buy Now 后动作</th></tr>
+            <tr><td>未登录</td><td>弹出 Sign up / Log in；支持 Email/Phone、Google、Apple、Telegram。</td></tr>
+            <tr><td>已登录未 KYC</td><td>进入 CoinW KYC；成功后恢复订单上下文。</td></tr>
+            <tr><td>KYC Processing</td><td>禁止支付；显示审核中和可返回入口。</td></tr>
+            <tr><td>KYC Passed</td><td>请求 Provider Eligibility / Quote。</td></tr>
+            <tr><td>Provider 需要补充 KYC</td><td>标记 Extra KYC；仅收集缺失字段，避免完整重做。</td></tr>
+          </table>
+        </section>
+
+        <section class="prd-section" id="prd-payment">
+          <h3>10. Payment Method 与 Quote</h3>
+          <h4>支付方式展示</h4>
+          <ul>
+            <li><b>Debit/Credit Card：</b>Visa、Mastercard。</li>
+            <li><b>Apple Pay：</b>独立一行，仅设备/地区/Provider 支持时展示。</li>
+            <li><b>Google Pay：</b>独立一行，仅设备/地区/Provider 支持时展示。</li>
+            <li><b>Bank Transfer：</b>P1；按地区展示 local rail / virtual account。</li>
+            <li><b>Third Party：</b>仅在 CoinW Connect 原生能力不可用或价格显著更优时作为补充。</li>
+          </ul>
+          <h4>Quote 列表</h4>
+          <p>认证后可展示多个可执行报价。每张卡只保留 Provider / Receive / Effective Price / Fee / ETA / Best 标识，避免重复信息。</p>
+        </section>
+
+        <section class="prd-section" id="prd-order">
+          <h3>11. 订单状态机</h3>
+          <table class="prd-table">
+            <tr><th>状态</th><th>含义</th><th>用户展示</th></tr>
+            <tr><td>CREATED</td><td>CoinW 订单创建</td><td>Preparing payment</td></tr>
+            <tr><td>PAYMENT_PENDING</td><td>等待支付/3DS</td><td>Complete your payment</td></tr>
+            <tr><td>PAYMENT_PROCESSING</td><td>支付处理中</td><td>Processing</td></tr>
+            <tr><td>PAYMENT_SUCCESS</td><td>法币支付成功</td><td>Payment received</td></tr>
+            <tr><td>CRYPTO_PROCESSING</td><td>Provider/内部换币与结算</td><td>Crypto is on the way</td></tr>
+            <tr><td>COMPLETED</td><td>资产到账</td><td>Completed</td></tr>
+            <tr><td>FAILED</td><td>不可恢复失败</td><td>Failed + Retry</td></tr>
+            <tr><td>REFUNDING / REFUNDED</td><td>退款中/完成</td><td>Refund status</td></tr>
+          </table>
+        </section>
+
+        <section class="prd-section" id="prd-exception">
+          <h3>12. 异常与边界场景</h3>
+          <ul>
+            <li>Quote 过期：自动刷新；价格变化超过阈值需用户二次确认。</li>
+            <li>Provider 不可用：Router 尝试下一通道；不得直接报系统错误。</li>
+            <li>3DS 失败：保留订单，允许 Retry 或更换支付方式。</li>
+            <li>支付成功但资产未到账：订单进入 CRYPTO_PROCESSING，禁止重复扣款。</li>
+            <li>用户切换 fiat / asset 后：旧 Quote 立即失效。</li>
+            <li>地区受限：在 Payment Method 层隐藏不可用选项；若全不可用，给替代方案。</li>
+            <li>移动端返回：保留表单与状态，不清空。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-risk">
+          <h3>13. 风控与合规要求</h3>
+          <ul>
+            <li>Provider Eligibility 必须结合用户实体、居住国、IP、KYC level、支付工具国家。</li>
+            <li>Card：3DS、AVS/CVV（若适用）、velocity、device/fraud signals。</li>
+            <li>制裁/PEP/高风险地区沿用 CoinW 账户层规则；Provider 的额外要求由 Router 统一映射。</li>
+            <li>支付工具持有人与 KYC 姓名不一致策略需合规确认。</li>
+            <li>订单、Provider decision、Webhook 原文、人工操作均需 Audit Log。</li>
+            <li>涉及 Provider / legal counterparty 的强制披露由法务提供统一模板。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-data">
+          <h3>14. 数据埋点与核心漏斗</h3>
+          <table class="prd-table">
+            <tr><th>Event</th><th>触发</th><th>关键属性</th></tr>
+            <tr><td>buy_page_view</td><td>页面曝光</td><td>country, login_status, source</td></tr>
+            <tr><td>fiat_select / asset_select</td><td>切换币种</td><td>from, to</td></tr>
+            <tr><td>payment_method_open</td><td>打开支付方式</td><td>fiat, asset, amount</td></tr>
+            <tr><td>payment_method_select</td><td>选择方式</td><td>method, recommended</td></tr>
+            <tr><td>buy_now_click</td><td>点击 Buy Now</td><td>login_status, kyc_status</td></tr>
+            <tr><td>auth_complete</td><td>登录/注册完成</td><td>auth_method</td></tr>
+            <tr><td>quote_success</td><td>报价成功</td><td>provider, price, fee, ttl</td></tr>
+            <tr><td>payment_submit</td><td>支付提交</td><td>provider, method</td></tr>
+            <tr><td>order_complete</td><td>资产到账</td><td>amount, provider, total_latency</td></tr>
+            <tr><td>order_fail</td><td>失败</td><td>stage, error_code, provider</td></tr>
+          </table>
+          <p>Dashboard 必看：Visit→Buy Now、Auth Completion、Quote Success、Payment Success、Order Completion、Provider Success Rate、KYC Re-do Rate、P50/P95 Completion Time。</p>
+        </section>
+
+        <section class="prd-section" id="prd-seo">
+          <h3>15. SEO / Growth 预留</h3>
+          <ul>
+            <li>页面 SSR / 可抓取，不依赖登录才展示核心文本。</li>
+            <li>动态 Title / H1 / Meta：Buy {Asset} with {Fiat} | CoinW。</li>
+            <li>Programmatic Landing：/buy/btc/usd、/buy/usdt/eur 等。</li>
+            <li>正文模块：How to Buy、Supported Payment Methods、FAQ、Fees、Limits、Market-specific copy。</li>
+            <li>FAQ Schema / Breadcrumb Schema / canonical / hreflang。</li>
+            <li>不要用实时行情堆 SEO 内容；行情模块仅一次批量请求，避免性能成本。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-tech">
+          <h3>16. 技术与 API 需求</h3>
+          <table class="prd-table">
+            <tr><th>API</th><th>用途</th><th>建议 SLA</th></tr>
+            <tr><td>GET /buy/config</td><td>国家、fiat、asset、payment methods、限额</td><td>P95 &lt; 300ms，可缓存</td></tr>
+            <tr><td>POST /buy/eligibility</td><td>用户/方式/Provider 可用性</td><td>P95 &lt; 800ms</td></tr>
+            <tr><td>POST /buy/quotes</td><td>并发向可用 Provider 报价</td><td>P95 &lt; 2s</td></tr>
+            <tr><td>POST /buy/orders</td><td>创建 CoinW Order + Provider Order</td><td>幂等</td></tr>
+            <tr><td>GET /buy/orders/{id}</td><td>统一订单状态</td><td>支持轮询 + Webhook 推送</td></tr>
+            <tr><td>POST /webhooks/provider/{x}</td><td>Provider 状态回传</td><td>验签、去重、可重放</td></tr>
+          </table>
+          <h4>关键技术要求</h4>
+          <ul>
+            <li>Quote 聚合并发执行，不串行等待多个 Provider。</li>
+            <li>所有 create / webhook 必须幂等。</li>
+            <li>前端不得持有 Provider secret；敏感支付字段使用 PCI 合规 Hosted Fields / SDK。</li>
+            <li>Popular 行情使用 1 次 batch API + 15~60s cache。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-admin">
+          <h3>17. 后台 / 运营配置</h3>
+          <ul>
+            <li>Market Config：Country → Fiat → Asset → Payment Method → Provider。</li>
+            <li>Provider 开关、优先级、成本、限额、Maintenance、Fallback。</li>
+            <li>Recommended 规则权重配置。</li>
+            <li>订单搜索：UID、CoinW Order ID、Provider Order ID、Payment Method、状态、失败原因。</li>
+            <li>手动 Refresh Status / Retry Webhook / Export。</li>
+            <li>运营内容：SEO 模块、FAQ、How to Buy 文案可配置。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-i18n">
+          <h3>18. 多语言与本地化</h3>
+          <ul>
+            <li>资产 Symbol 与 Fiat code 固定英文；描述文本本地化。</li>
+            <li>金额、千分位、小数精度按语言/法币规范处理。</li>
+            <li>Supported Payment Methods 按地区动态，而不是全球统一硬编码。</li>
+            <li>SEO landing 使用 hreflang 和本地法币关键词。</li>
+            <li>移动端一行 Supported 支付方式允许横滑，不换成两行。</li>
+          </ul>
+        </section>
+
+        <section class="prd-section" id="prd-acceptance">
+          <h3>19. 验收标准</h3>
+          <ol>
+            <li>USD 切 EUR 后，H1、金额币种、estimate、Quote price 全部同步更新。</li>
+            <li>USDT 切 BTC 后，H1、Receive Asset、Popular 高亮、Quote 全部同步。</li>
+            <li>Buy Now 未登录必拉起注册/登录；成功后回到原订单上下文。</li>
+            <li>Payment Modal 中 Apple Pay / Google Pay 独立；Card 只包含 Visa/Mastercard。</li>
+            <li>Recommended 只允许一个默认选项，且与 Router 结果一致。</li>
+            <li>Quote 过期不可提交；刷新后用户可继续。</li>
+            <li>同一订单重复点击不得重复创建 Provider Order / 重复扣款。</li>
+            <li>Desktop / Mobile 核心流程都可完整走通。</li>
+            <li>Popular 5 个资产只使用一次批量行情请求。</li>
+            <li>SEO 模块在未登录状态可抓取。</li>
+          </ol>
+        </section>
+
+        <section class="prd-section" id="prd-roadmap">
+          <h3>20. Roadmap</h3>
+          <table class="prd-table">
+            <tr><th>阶段</th><th>交付</th><th>建议周期</th></tr>
+            <tr><td><span class="prd-tag p0">MVP</span></td><td>Buy + Card/Apple Pay/Google Pay + 1 主 Provider + 1 fallback + Auth/KYC + Quote/Order + Web/App</td><td>4~6 周（视 Provider 接入）</td></tr>
+            <tr><td><span class="prd-tag p1">Phase 1.1</span></td><td>Bank Transfer、Sell、Router、订单中心、Provider Analytics</td><td>+3~5 周</td></tr>
+            <tr><td>Phase 2</td><td>本地支付、Recurring Buy、更多国家、智能路由、SEO programmatic pages</td><td>持续迭代</td></tr>
+          </table>
+        </section>
+
+        <section class="prd-section" id="prd-open">
+          <h3>21. 待确认项 / Dependencies</h3>
+          <ul>
+            <li>首发国家与法币优先级：USD / EUR / GBP / AED 的具体 rollout。</li>
+            <li>首家 CoinW Connect Provider 及 fallback Provider 商务选择。</li>
+            <li>KYC Reliance 的法律/合规可接受范围、字段映射、用户 consent。</li>
+            <li>CoinW 与 Provider 谁是法币/加密服务 legal counterparty，需要如何披露。</li>
+            <li>Card chargeback / refund / dispute 的客服与资金责任归属。</li>
+            <li>Quote 是否将 CoinW markup / fee 合并展示，或拆分 fee。</li>
+            <li>Sell MVP 是否与 Buy 同期，还是 P1。</li>
+            <li>后台 Router 是自建还是先用 Provider/Orchestration 方案。</li>
+          </ul>
+          <div class="prd-callout"><b>建议决策顺序：</b>先锁定首发市场 → 确认 Provider 白标/KYC/覆盖 → 冻结 P0 Payment Methods → 冻结 Quote/Order API → 联调 → 灰度。</div>
+        </section>
+      </main>
+    </div>
+  </aside>
+
+</body>
+</html>
