@@ -33,6 +33,7 @@
     .big{font-size:27px;line-height:1.32;font-weight:850;letter-spacing:-.02em;margin:8px 0 12px}
     .checklist{display:grid;gap:10px;margin-top:16px}.check{display:flex;gap:10px;align-items:flex-start}.check i{font-style:normal;color:#9d82ff}
     .region-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.region{padding:20px;min-height:210px;position:relative;overflow:hidden}
+    .principle-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.principle{padding:22px 20px;min-height:226px;position:relative;overflow:hidden}.principle:before{content:"";position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(90deg,var(--purple),var(--purple2))}.principle .icon{width:38px;height:38px;border-radius:12px;background:var(--soft);color:var(--purple);display:grid;place-items:center;font-size:13px;font-weight:900;margin-bottom:17px}.principle h3{font-size:18px;line-height:1.35;margin:0 0 9px}.principle p{font-size:13px;color:var(--muted);margin:0}.principle strong{color:var(--ink)}
     .region .num{font-size:11px;color:var(--purple);font-weight:900}.region h3{font-size:20px;margin:4px 0 8px}.region p{font-size:13px;color:var(--muted);margin:0}.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.tag{font-size:11px;font-weight:800;padding:5px 8px;border-radius:8px;background:var(--soft);color:#5c32d2}
     .case{display:grid;grid-template-columns:310px 1fr;overflow:hidden;margin-bottom:18px}.person{padding:28px;background:linear-gradient(145deg,#1d1828,#31234f);color:white}.avatar{width:52px;height:52px;border-radius:17px;background:linear-gradient(135deg,#8a5cff,#5730da);display:grid;place-items:center;font-size:24px;margin-bottom:18px}
     .person h3{font-size:24px;margin:0 0 4px}.person p{margin:0;color:#c8c0d5;font-size:14px}.order{margin-top:20px;border-top:1px solid rgba(255,255,255,.15);padding-top:16px}.order strong{font-size:19px}.journey{padding:28px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:18px}.step{background:#faf9fd;border:1px solid var(--line);border-radius:15px;padding:15px;min-height:126px;position:relative}.step b{display:block;color:var(--purple);font-size:12px;margin-bottom:7px}.step strong{font-size:14px;display:block;line-height:1.38}.step small{display:block;color:var(--muted);margin-top:6px;line-height:1.45}.step:not(:last-child):after{content:"→";position:absolute;right:-10px;top:48px;z-index:2;color:#9f97ac;font-weight:900}
@@ -45,8 +46,8 @@
     .note{padding:22px;border-left:4px solid var(--purple);background:#faf8ff;border-radius:0 15px 15px 0;color:#504b58}
     .kyc-layout{display:grid;grid-template-columns:.88fr 1.12fr;gap:18px}.kyc-card{padding:28px}.country-groups{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.country-group{border:1px solid var(--line);background:#fbfaff;border-radius:15px;padding:15px}.country-group b{display:block;font-size:13px;color:var(--purple);margin-bottom:7px}.country-group span{display:block;font-size:13px;color:var(--muted);line-height:1.65}.kyc-flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:18px}.kyc-step{padding:13px 10px;min-height:112px;border-radius:13px;border:1px solid var(--line);background:#fff;font-size:12px;position:relative}.kyc-step em{font-style:normal;color:var(--purple);font-weight:900;display:block;margin-bottom:6px}.kyc-step strong{font-size:13px;line-height:1.35}.kyc-step.highlight{background:var(--soft);border-color:#d5c9ff}.kyc-step:not(:last-child):after{content:"→";position:absolute;right:-8px;top:42px;color:#9991a5;font-weight:900;z-index:2}
     footer{padding:48px 0 68px;color:#77717f;font-size:13px}.footer-inner{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:25px}
-    @media(max-width:980px){.region-grid{grid-template-columns:repeat(2,1fr)}.case{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.step:not(:last-child):after{display:none}.route-wrap,.summary,.kyc-layout{grid-template-columns:1fr}.kyc-flow{grid-template-columns:repeat(3,1fr)}.kyc-step:not(:last-child):after{display:none}.ops{grid-template-columns:1fr 1fr}.phases{grid-template-columns:1fr}.nav{display:none}}
-    @media(max-width:620px){.wrap{padding:0 16px}.hero{padding-top:50px}h1{font-size:42px}.lead{font-size:16px}.section-head{display:block}.region-grid,.flow,.ops,.country-groups,.kyc-flow{grid-template-columns:1fr}.region{min-height:auto}.summary>div,.person,.journey,.architecture,.route-card,.kyc-card{padding:21px}.footer-inner{display:block}}
+    @media(max-width:980px){.region-grid,.principle-grid{grid-template-columns:repeat(2,1fr)}.case{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.step:not(:last-child):after{display:none}.route-wrap,.summary,.kyc-layout{grid-template-columns:1fr}.kyc-flow{grid-template-columns:repeat(3,1fr)}.kyc-step:not(:last-child):after{display:none}.ops{grid-template-columns:1fr 1fr}.phases{grid-template-columns:1fr}.nav{display:none}}
+    @media(max-width:620px){.wrap{padding:0 16px}.hero{padding-top:50px}h1{font-size:42px}.lead{font-size:16px}.section-head{display:block}.region-grid,.principle-grid,.flow,.ops,.country-groups,.kyc-flow{grid-template-columns:1fr}.region,.principle{min-height:auto}.summary>div,.person,.journey,.architecture,.route-card,.kyc-card{padding:21px}.footer-inner{display:block}}
   </style>
 </head>
 <body>
@@ -63,9 +64,19 @@
     </section>
 
     <section><div class="wrap"><div class="panel summary">
-      <div><div class="eyebrow">一句话理解</div><div class="big">前端只有一套 CoinW Buy Crypto，后端可以不断扩展当地支付渠道。</div><p class="sub">用户不需要认识或选择 Provider。CoinW 根据国家、法币、支付方式、报价、成功率、限额、合规覆盖与渠道健康度，决定本次订单走哪条通道。</p></div>
-      <div class="right"><div class="eyebrow">核心业务价值</div><div class="checklist"><div class="check"><i>✓</i><span>提升本地支付覆盖与买币转化率</span></div><div class="check"><i>✓</i><span>单一 Provider 故障时可快速切换</span></div><div class="check"><i>✓</i><span>新增 PSP 主要开发 Adapter，无需重做前端</span></div><div class="check"><i>✓</i><span>统一管理订单、状态、异常、退款与对账</span></div></div></div>
+      <div><div class="eyebrow">一句话理解</div><div class="big">全球共用一套 CoinW 原生 Buy Crypto，底层按国家灵活适配。</div><p class="sub">CoinW 统一掌控用户体验、订单和渠道编排。能力成熟后，可将用户端流程、支付编排、Provider Adapter 与运营后台整套输出给 CBC。</p></div>
+      <div class="right"><div class="eyebrow">平台定位</div><div class="checklist"><div class="check"><i>✓</i><span>CoinW 是统一用户入口和产品品牌</span></div><div class="check"><i>✓</i><span>Payment Orchestration 是可复用底层能力</span></div><div class="check"><i>✓</i><span>本地支付与 Provider 通过配置持续扩展</span></div><div class="check"><i>✓</i><span>未来支持整套能力向 CBC 输出</span></div></div></div>
     </div></div></section>
+
+    <section><div class="wrap"><div class="section-head"><div><h2>五项核心产品原则</h2><p class="sub">前端统一、底层可配置、渠道可扩展，让 Buy Crypto 从单点功能升级为可复制的平台能力。</p></div></div>
+      <div class="principle-grid">
+        <article class="panel principle"><div class="icon">01</div><h3>统一产品入口</h3><p>全球共用一套 <strong>CoinW Buy Crypto 原生流程</strong>，统一交互、订单与品牌体验；后续可将整套能力输出给 CBC。</p></article>
+        <article class="panel principle"><div class="icon">02</div><h3>本地支付适配</h3><p>按地区展示当地法币和最便捷的支付方式，以<strong>价格优势和本地化体验</strong>为优先。</p></article>
+        <article class="panel principle"><div class="icon">03</div><h3>智能渠道路由</h3><p>根据用户与地区合规要求、报价、支付成功率、交易限额和渠道状态，自动选择最优 Provider。</p></article>
+        <article class="panel principle"><div class="icon">04</div><h3>标准化接入</h3><p>新增 PSP / On-ramp 通过统一 <strong>Adapter</strong> 接入，无需重新设计或开发前端买币流程。</p></article>
+        <article class="panel principle"><div class="icon">05</div><h3>快速复制市场</h3><p>新增国家主要配置当地法币、支付方式、合规规则和 Provider，即可快速复用整套能力。</p></article>
+      </div>
+    </div></section>
 
     <section id="strategy"><div class="wrap"><div class="section-head"><div><h2>重点区域策略</h2><p class="sub">区域只是第一层，实际配置需要继续细化到国家、法币、支付方式与 Provider 能力。</p></div></div>
       <div class="region-grid">
