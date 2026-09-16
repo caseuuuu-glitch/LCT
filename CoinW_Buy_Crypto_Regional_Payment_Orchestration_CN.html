@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CoinW Native Buy Crypto｜区域化支付编排方案</title>
+  <meta name="description" content="面向 CIS、中亚、拉美、波兰、欧洲及 MENA 市场的 CoinW 原生 Buy Crypto 与 Payment Orchestration 方案。" />
+  <style>
+    :root{
+      --bg:#f6f7fb;--panel:#fff;--ink:#15131b;--muted:#696574;--line:#e8e5ee;
+      --purple:#6d3cf4;--purple2:#8f6cff;--soft:#f1edff;--green:#12a66a;--amber:#e58a00;--red:#df4351;
+      --shadow:0 16px 46px rgba(38,22,74,.08);--radius:22px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;line-height:1.68}
+    a{color:inherit;text-decoration:none}.wrap{max-width:1180px;margin:auto;padding:0 28px}
+    .top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,229,238,.9)}
+    .top-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{font-weight:900;letter-spacing:-.03em;font-size:22px}.brand span{color:var(--purple)}
+    .nav{display:flex;gap:22px;color:var(--muted);font-size:14px;font-weight:650}.nav a:hover{color:var(--purple)}
+    .hero{padding:76px 0 46px;overflow:hidden;position:relative;background:radial-gradient(circle at 82% 12%,#e4dbff 0,transparent 31%),linear-gradient(180deg,#fff,#f7f5ff 68%,var(--bg))}
+    .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid #dcd2ff;background:#f6f2ff;color:#5b31d2;border-radius:100px;padding:7px 13px;font-size:13px;font-weight:800}
+    h1{font-size:clamp(42px,6.6vw,76px);line-height:1.06;letter-spacing:-.055em;margin:22px 0 20px;max-width:990px}
+    .gradient{background:linear-gradient(95deg,#5422e8,#9b63ff);-webkit-background-clip:text;color:transparent}
+    .lead{max-width:840px;font-size:19px;color:#5f5a69;margin:0 0 28px}
+    .hero-points{display:flex;flex-wrap:wrap;gap:10px}.pill{background:white;border:1px solid var(--line);border-radius:100px;padding:9px 14px;font-size:13px;box-shadow:0 5px 16px rgba(38,22,74,.04)}
+    section{padding:42px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:22px}
+    h2{font-size:34px;line-height:1.2;letter-spacing:-.035em;margin:0}.sub{color:var(--muted);max-width:670px;margin:8px 0 0}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .summary{display:grid;grid-template-columns:1.2fr .8fr;overflow:hidden}
+    .summary>div{padding:32px}.summary .right{background:#1b1725;color:white}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--purple);font-weight:900}.right .eyebrow{color:#bba8ff}
+    .big{font-size:27px;line-height:1.32;font-weight:850;letter-spacing:-.02em;margin:8px 0 12px}
+    .checklist{display:grid;gap:10px;margin-top:16px}.check{display:flex;gap:10px;align-items:flex-start}.check i{font-style:normal;color:#9d82ff}
+    .region-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.region{padding:20px;min-height:210px;position:relative;overflow:hidden}
+    .region .num{font-size:11px;color:var(--purple);font-weight:900}.region h3{font-size:20px;margin:4px 0 8px}.region p{font-size:13px;color:var(--muted);margin:0}.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}.tag{font-size:11px;font-weight:800;padding:5px 8px;border-radius:8px;background:var(--soft);color:#5c32d2}
+    .case{display:grid;grid-template-columns:310px 1fr;overflow:hidden;margin-bottom:18px}.person{padding:28px;background:linear-gradient(145deg,#1d1828,#31234f);color:white}.avatar{width:52px;height:52px;border-radius:17px;background:linear-gradient(135deg,#8a5cff,#5730da);display:grid;place-items:center;font-size:24px;margin-bottom:18px}
+    .person h3{font-size:24px;margin:0 0 4px}.person p{margin:0;color:#c8c0d5;font-size:14px}.order{margin-top:20px;border-top:1px solid rgba(255,255,255,.15);padding-top:16px}.order strong{font-size:19px}.journey{padding:28px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:18px}.step{background:#faf9fd;border:1px solid var(--line);border-radius:15px;padding:15px;min-height:126px;position:relative}.step b{display:block;color:var(--purple);font-size:12px;margin-bottom:7px}.step strong{font-size:14px;display:block;line-height:1.38}.step small{display:block;color:var(--muted);margin-top:6px;line-height:1.45}.step:not(:last-child):after{content:"→";position:absolute;right:-10px;top:48px;z-index:2;color:#9f97ac;font-weight:900}
+    .decision{margin-top:15px;padding:13px 15px;border-radius:13px;background:#f2f8f5;border:1px solid #d6eee3;color:#21734f;font-size:13px}
+    .architecture{padding:30px;overflow:auto}.arch{min-width:900px;display:grid;gap:13px}.layer{display:grid;grid-template-columns:165px 1fr;gap:15px;align-items:center}.layer-title{font-size:13px;font-weight:900;color:#595365;text-align:right}.boxes{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px}.box{border:1px solid var(--line);border-radius:13px;padding:15px 12px;text-align:center;background:#fff;font-size:13px;font-weight:750}.box.core{background:var(--soft);border-color:#d7ccff;color:#502bc3}.box.dark{background:#211a30;color:#fff;border-color:#211a30}.connector{text-align:center;color:#968da3;font-size:18px;height:11px;line-height:10px;margin-left:180px}
+    .route-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}.route-card{padding:27px}.formula{border-radius:16px;background:#201a2c;color:#fff;padding:19px;margin-top:16px;font-size:13px;line-height:2}.formula span{color:#b9a5ff;font-weight:800}.weights{display:grid;gap:10px;margin-top:16px}.weight{display:grid;grid-template-columns:150px 1fr 45px;align-items:center;gap:10px;font-size:13px}.bar{height:8px;background:#eeeaf3;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--purple2));border-radius:20px}
+    .table-wrap{overflow:auto}.matrix{width:100%;border-collapse:collapse;min-width:900px}.matrix th,.matrix td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.matrix th{background:#faf9fc;color:#5f5968;font-size:12px}.matrix td:first-child{font-weight:850}.yes{color:var(--green);font-weight:800}.verify{color:var(--amber);font-weight:800}.no{color:#a6a0ac}
+    .ops{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}.metric{padding:20px}.metric small{display:block;color:var(--muted)}.metric strong{font-size:25px;display:block;margin-top:5px}.status{font-size:11px;color:var(--green);font-weight:800}
+    .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.phase{padding:25px}.phase .pnum{color:var(--purple);font-weight:900;font-size:12px}.phase h3{margin:6px 0 12px}.phase ul{padding-left:18px;color:var(--muted);font-size:14px}.phase li{margin:6px 0}
+    .note{padding:22px;border-left:4px solid var(--purple);background:#faf8ff;border-radius:0 15px 15px 0;color:#504b58}
+    .kyc-layout{display:grid;grid-template-columns:.88fr 1.12fr;gap:18px}.kyc-card{padding:28px}.country-groups{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.country-group{border:1px solid var(--line);background:#fbfaff;border-radius:15px;padding:15px}.country-group b{display:block;font-size:13px;color:var(--purple);margin-bottom:7px}.country-group span{display:block;font-size:13px;color:var(--muted);line-height:1.65}.kyc-flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:18px}.kyc-step{padding:13px 10px;min-height:112px;border-radius:13px;border:1px solid var(--line);background:#fff;font-size:12px;position:relative}.kyc-step em{font-style:normal;color:var(--purple);font-weight:900;display:block;margin-bottom:6px}.kyc-step strong{font-size:13px;line-height:1.35}.kyc-step.highlight{background:var(--soft);border-color:#d5c9ff}.kyc-step:not(:last-child):after{content:"→";position:absolute;right:-8px;top:42px;color:#9991a5;font-weight:900;z-index:2}
+    footer{padding:48px 0 68px;color:#77717f;font-size:13px}.footer-inner{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:25px}
+    @media(max-width:980px){.region-grid{grid-template-columns:repeat(2,1fr)}.case{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.step:not(:last-child):after{display:none}.route-wrap,.summary,.kyc-layout{grid-template-columns:1fr}.kyc-flow{grid-template-columns:repeat(3,1fr)}.kyc-step:not(:last-child):after{display:none}.ops{grid-template-columns:1fr 1fr}.phases{grid-template-columns:1fr}.nav{display:none}}
+    @media(max-width:620px){.wrap{padding:0 16px}.hero{padding-top:50px}h1{font-size:42px}.lead{font-size:16px}.section-head{display:block}.region-grid,.flow,.ops,.country-groups,.kyc-flow{grid-template-columns:1fr}.region{min-height:auto}.summary>div,.person,.journey,.architecture,.route-card,.kyc-card{padding:21px}.footer-inner{display:block}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap top-inner"><div class="brand">Coin<span>W</span> · Buy Crypto</div><nav class="nav"><a href="#strategy">区域策略</a><a href="#kyc">后置 KYC</a><a href="#cases">用户案例</a><a href="#architecture">系统架构</a><a href="#routing">智能路由</a><a href="#roadmap">实施计划</a></nav></div></header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="badge">Native Buy Crypto · Payment Orchestration</div>
+        <h1>一个 CoinW 买币入口，<br><span class="gradient">适配每个重点市场。</span></h1>
+        <p class="lead">用户始终停留在 CoinW。波兰用户看到 PLN + BLIK，巴西用户看到 BRL + Pix，哈萨克斯坦用户看到 KZT + 当地支付方式；底层系统自动选择最合适的 PSP / On-ramp。</p>
+        <div class="hero-points"><span class="pill">原生 Web / App</span><span class="pill">地区化支付方式</span><span class="pill">多渠道统一报价</span><span class="pill">规则 + 动态路由</span><span class="pill">标准化 Provider Adapter</span></div>
+      </div>
+    </section>
+
+    <section><div class="wrap"><div class="panel summary">
+      <div><div class="eyebrow">一句话理解</div><div class="big">前端只有一套 CoinW Buy Crypto，后端可以不断扩展当地支付渠道。</div><p class="sub">用户不需要认识或选择 Provider。CoinW 根据国家、法币、支付方式、报价、成功率、限额、合规覆盖与渠道健康度，决定本次订单走哪条通道。</p></div>
+      <div class="right"><div class="eyebrow">核心业务价值</div><div class="checklist"><div class="check"><i>✓</i><span>提升本地支付覆盖与买币转化率</span></div><div class="check"><i>✓</i><span>单一 Provider 故障时可快速切换</span></div><div class="check"><i>✓</i><span>新增 PSP 主要开发 Adapter，无需重做前端</span></div><div class="check"><i>✓</i><span>统一管理订单、状态、异常、退款与对账</span></div></div></div>
+    </div></div></section>
+
+    <section id="strategy"><div class="wrap"><div class="section-head"><div><h2>重点区域策略</h2><p class="sub">区域只是第一层，实际配置需要继续细化到国家、法币、支付方式与 Provider 能力。</p></div></div>
+      <div class="region-grid">
+        <article class="panel region"><div class="num">01</div><h3>Poland</h3><p>优先提供 PLN 原生报价与 BLIK；补充本地银行转账和银行卡，减少只支持 EUR/Card 带来的流失。</p><div class="tag-row"><span class="tag">PLN</span><span class="tag">BLIK</span><span class="tag">Bank</span></div></article>
+        <article class="panel region"><div class="num">02</div><h3>LATAM</h3><p>国家差异明显。Brazil 优先 Pix，Mexico 优先 SPEI；同时处理本地 FX、限额和高失败率问题。</p><div class="tag-row"><span class="tag">BRL · Pix</span><span class="tag">MXN · SPEI</span></div></article>
+        <article class="panel region"><div class="num">03</div><h3>CIS / 中亚</h3><p>不能把 CIS 视作统一市场。Kazakhstan、Uzbekistan、Georgia 等需分别验证本地法币和可合规接入渠道。</p><div class="tag-row"><span class="tag">KZT</span><span class="tag">UZS</span><span class="tag">GEL</span></div></article>
+        <article class="panel region"><div class="num">04</div><h3>Europe</h3><p>以 EUR、SEPA、Card、Apple Pay 为基础，结合 CoinW KYC、Provider KYC reliance 与 PSD2/3DS 体验。</p><div class="tag-row"><span class="tag">EUR</span><span class="tag">SEPA</span><span class="tag">Apple Pay</span></div></article>
+        <article class="panel region"><div class="num">05</div><h3>MENA</h3><p>围绕 AED 等本地法币、银行卡和本地银行能力搭建覆盖，路由需考虑本地收单与合规可用性。</p><div class="tag-row"><span class="tag">AED</span><span class="tag">Card</span><span class="tag">Local Bank</span></div></article>
+      </div>
+    </div></section>
+
+    <section id="kyc"><div class="wrap"><div class="section-head"><div><h2>后置 KYC 国家策略</h2><p class="sub">对指定国家减少买币前置阻力：用户可先查看本地支付方式和真实报价，确认购买意向后再完成 KYC；未通过 KYC 不允许进入支付。</p></div></div>
+      <div class="kyc-layout">
+        <article class="panel kyc-card"><div class="eyebrow">适用国家 · 14 个</div><div class="country-groups">
+          <div class="country-group"><b>东南亚 · 5</b><span>印度尼西亚、越南、菲律宾、马来西亚、柬埔寨</span></div>
+          <div class="country-group"><b>南亚 · 2</b><span>印度、巴基斯坦</span></div>
+          <div class="country-group"><b>拉丁美洲 · 6</b><span>巴西、墨西哥、哥伦比亚、阿根廷、智利、秘鲁</span></div>
+          <div class="country-group"><b>非洲 · 1</b><span>尼日利亚</span></div>
+        </div><div class="note" style="margin-top:14px;padding:15px 16px;font-size:13px"><strong>配置原则：</strong>国家名单必须后台可配置，并按 Global / Entity、App / Web、Provider、支付方式和用户风险等级进行灰度，不写死在前端。</div></article>
+        <article class="panel kyc-card"><div class="eyebrow">用户流程</div><div class="big">先让用户理解“怎么买、能收到多少”，再要求认证。</div><div class="kyc-flow">
+          <div class="kyc-step"><em>01</em><strong>选择法币与 Crypto</strong></div>
+          <div class="kyc-step"><em>02</em><strong>输入金额</strong><br>展示当地支付方式</div>
+          <div class="kyc-step"><em>03</em><strong>获取真实报价</strong><br>完成通道预筛选</div>
+          <div class="kyc-step highlight"><em>04 · KYC</em><strong>点击 Buy 后触发认证</strong></div>
+          <div class="kyc-step"><em>05</em><strong>Review & Pay</strong><br>完成支付授权</div>
+          <div class="kyc-step"><em>06</em><strong>Crypto 到账</strong><br>进入 CoinW 资产</div>
+        </div></article>
+      </div>
+      <div class="panel table-wrap" style="margin-top:16px"><table class="matrix"><thead><tr><th>判断条件</th><th>处理逻辑</th><th>用户体验</th></tr></thead><tbody>
+        <tr><td>国家在后置 KYC 名单内</td><td>允许进入报价与支付方式选择；创建支付订单前强制校验 KYC</td><td>先看报价，点击 Buy 后认证</td></tr>
+        <tr><td>已完成 CoinW KYC</td><td>优先向 Provider 传递可复用身份信息；仍需判断 Provider 是否要求补充认证</td><td>尽量直接进入 Review & Pay</td></tr>
+        <tr><td>Provider 不接受 KYC Reliance</td><td>在路由评分中降权；若仍选择该通道，提前标记 Additional Verification</td><td>认证前明确提示，避免支付中途跳出</td></tr>
+        <tr><td>高风险用户 / 高风险订单</td><td>覆盖后置策略，提前触发增强认证、风控或人工审核</td><td>说明需要额外验证</td></tr>
+        <tr><td>当地政策或 Provider 能力变化</td><td>后台立即关闭对应国家、支付方式或 Provider，不依赖客户端发版</td><td>隐藏不可用方式并提供替代通道</td></tr>
+      </tbody></table></div>
+      <div class="note" style="margin-top:16px"><strong>合规边界：</strong>后置 KYC 仅改变认证在用户旅程中的展示时点，不降低 KYC/AML 标准。是否允许展示报价、创建订单或进入支付，应由 CoinW Entity 规则、当地法律意见、Provider 要求及风险策略共同决定。</div>
+    </div></section>
+
+    <section id="cases"><div class="wrap"><div class="section-head"><div><h2>用户案例：系统到底怎么工作</h2><p class="sub">用户看到的是本地支付体验；复杂的 Provider 选择发生在 CoinW 后台。</p></div></div>
+      <article class="panel case"><div class="person"><div class="avatar">PL</div><h3>Anna · 波兰</h3><p>已完成 CoinW KYC，希望用 BLIK 快速买 USDT。</p><div class="order"><small>You Pay</small><br><strong>1,000 PLN</strong><br><small>Buy USDT · BLIK</small></div></div><div class="journey"><div class="eyebrow">案例 A · 本地方式优先</div><div class="flow"><div class="step"><b>01 用户输入</b><strong>1,000 PLN 买 USDT</strong><small>页面只展示当地可用方式</small></div><div class="step"><b>02 资格筛选</b><strong>PL + PLN + BLIK</strong><small>排除不支持 BLIK 的通道</small></div><div class="step"><b>03 实时报价</b><strong>比较 3 家 Provider</strong><small>到账量、成功率、限额</small></div><div class="step"><b>04 完成支付</b><strong>CoinW 原生支付页</strong><small>用户不感知渠道切换</small></div><div class="step"><b>05 资产到账</b><strong>USDT 入 CoinW 账户</strong><small>统一订单记录和状态</small></div></div><div class="decision"><strong>路由结果：</strong>Provider B 报价略高，但 Provider C 的 BLIK 成功率更高且到账更快，因此系统选择 Provider C。</div></div></article>
+      <article class="panel case"><div class="person"><div class="avatar">BR</div><h3>Carlos · 巴西</h3><p>希望使用 Pix，不愿填写国际卡信息。</p><div class="order"><small>You Pay</small><br><strong>2,000 BRL</strong><br><small>Buy USDT · Pix</small></div></div><div class="journey"><div class="eyebrow">案例 B · 价格与转化共同优化</div><div class="flow"><div class="step"><b>01 自动适配</b><strong>显示 BRL + Pix</strong><small>基于国家及账户信息</small></div><div class="step"><b>02 渠道过滤</b><strong>只保留 Pix 通道</strong><small>检查合规和交易限额</small></div><div class="step"><b>03 路由评分</b><strong>报价 × 成功率</strong><small>并考虑成本和处理速度</small></div><div class="step"><b>04 Pix 支付</b><strong>完成授权</strong><small>订单状态实时回传</small></div><div class="step"><b>05 统一入账</b><strong>Wallet + Ledger</strong><small>资产到账并通知用户</small></div></div><div class="decision"><strong>用户感知：</strong>“我在 CoinW 用 Pix 买了 USDT”，而不是“我跳到某家第三方网站买币”。</div></div></article>
+      <article class="panel case"><div class="person"><div class="avatar">KZ</div><h3>Ayan · 哈萨克斯坦</h3><p>用 KZT 当地银行卡买 USDT，首选通道暂时异常。</p><div class="order"><small>You Pay</small><br><strong>500,000 KZT</strong><br><small>Buy USDT · Local Card</small></div></div><div class="journey"><div class="eyebrow">案例 C · 故障切换</div><div class="flow"><div class="step"><b>01 能力识别</b><strong>KZ + KZT + Card</strong><small>按国家独立配置</small></div><div class="step"><b>02 首选通道</b><strong>Provider A</strong><small>初始化前发现渠道不可用</small></div><div class="step"><b>03 自动切换</b><strong>切换 Provider B</strong><small>无需用户重新选 Provider</small></div><div class="step"><b>04 支付验证</b><strong>3DS / 风控</strong><small>授权后不进行盲目重试</small></div><div class="step"><b>05 成功到账</b><strong>CoinW 订单完成</strong><small>后台保留原始渠道记录</small></div></div><div class="decision"><strong>切换边界：</strong>Provider API 或报价失败可自动 reroute；银行卡已授权或扣款后的失败必须进入订单恢复/人工处理，避免重复扣款。</div></div></article>
+    </div></section>
+
+    <section id="architecture"><div class="wrap"><div class="section-head"><div><h2>系统架构</h2><p class="sub">从用户端、统一 API、支付编排、Adapter，到外部通道与 CoinW 账务形成完整闭环。</p></div></div>
+      <div class="panel architecture"><div class="arch">
+        <div class="layer"><div class="layer-title">用户体验层</div><div class="boxes"><div class="box dark">CoinW Web</div><div class="box dark">CoinW App</div><div class="box dark">Buy Crypto History</div></div></div><div class="connector">↓</div>
+        <div class="layer"><div class="layer-title">统一业务 API</div><div class="boxes"><div class="box">Payment Methods</div><div class="box">Quote API</div><div class="box">Order API</div><div class="box">Payment API</div></div></div><div class="connector">↓</div>
+        <div class="layer"><div class="layer-title">Orchestration Core</div><div class="boxes"><div class="box core">Eligibility Engine</div><div class="box core">Quote Engine</div><div class="box core">Routing Engine</div><div class="box core">Order State Machine</div><div class="box core">Failover</div></div></div><div class="connector">↓</div>
+        <div class="layer"><div class="layer-title">标准 Adapter 层</div><div class="boxes"><div class="box">getCapabilities</div><div class="box">getQuote</div><div class="box">createPayment</div><div class="box">handleWebhook</div><div class="box">reconcile</div></div></div><div class="connector">↓</div>
+        <div class="layer"><div class="layer-title">外部服务层</div><div class="boxes"><div class="box dark">Global On-ramp</div><div class="box dark">Poland PSP</div><div class="box dark">LATAM PSP</div><div class="box dark">CIS / Central Asia</div><div class="box dark">Local Bank</div></div></div><div class="connector">↓</div>
+        <div class="layer"><div class="layer-title">CoinW 核心系统</div><div class="boxes"><div class="box">KYC / AML</div><div class="box">Risk Engine</div><div class="box">Wallet</div><div class="box">Ledger</div><div class="box">Reconciliation</div><div class="box">Notification</div></div></div>
+      </div></div>
+      <div class="note" style="margin-top:16px"><strong>关键边界：</strong>支付编排层决定“订单走哪条通道”，但用户资格、KYC/AML、资产入账和账务记录仍由 CoinW 核心系统统一控制。Provider 的原始订单状态需映射为 CoinW 标准状态。</div>
+    </div></section>
+
+    <section id="routing"><div class="wrap"><div class="section-head"><div><h2>智能路由：不是只选最低价格</h2><p class="sub">最优通道应以转化后的综合收益为目标。报价最好但经常支付失败，不一定是最佳 Route。</p></div></div>
+      <div class="route-wrap"><div class="panel route-card"><div class="eyebrow">Routing Decision</div><div class="big">先过滤，再评分，再执行。</div><div class="formula"><span>Eligibility Filter</span><br>Country + Fiat + Crypto + Payment Method + KYC + Limit + Compliance<br><br><span>Dynamic Score</span><br>Success Rate + Final Price + Availability + Speed + Commercial Cost</div></div>
+      <div class="panel route-card"><div class="eyebrow">示例权重 · 可后台配置</div><div class="weights"><div class="weight"><span>支付成功率</span><div class="bar"><i style="width:30%"></i></div><b>30%</b></div><div class="weight"><span>用户最终到账量</span><div class="bar"><i style="width:25%"></i></div><b>25%</b></div><div class="weight"><span>合规 / KYC 匹配</span><div class="bar"><i style="width:15%"></i></div><b>15%</b></div><div class="weight"><span>渠道健康度</span><div class="bar"><i style="width:10%"></i></div><b>10%</b></div><div class="weight"><span>处理速度</span><div class="bar"><i style="width:10%"></i></div><b>10%</b></div><div class="weight"><span>CoinW 商业成本</span><div class="bar"><i style="width:10%"></i></div><b>10%</b></div></div><p class="sub" style="font-size:13px;margin-top:18px">MVP 阶段先采用 Country + Fiat + Payment Method + Amount + Manual Priority 的规则路由；有足够订单数据后再启用实时动态评分。</p></div></div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><div><h2>Country × Payment × Provider Matrix</h2><p class="sub">这是 BD、产品、合规和技术共同维护的接入底表。下表是目标能力示意，实际 Provider 支持情况必须通过 RFP 和合规评估确认。</p></div></div>
+      <div class="panel table-wrap"><table class="matrix"><thead><tr><th>市场</th><th>法币</th><th>重点方式</th><th>Global PSP</th><th>Regional PSP</th><th>Local PSP / Bank</th><th>产品优先级</th></tr></thead><tbody>
+        <tr><td>Poland</td><td>PLN</td><td>BLIK / Bank / Card</td><td class="verify">需验证 BLIK</td><td class="yes">重点候选</td><td class="yes">重点候选</td><td>P0</td></tr>
+        <tr><td>Brazil</td><td>BRL</td><td>Pix / Card</td><td class="yes">候选</td><td class="yes">重点候选</td><td class="yes">重点候选</td><td>P0</td></tr>
+        <tr><td>Mexico</td><td>MXN</td><td>SPEI / Card</td><td class="yes">候选</td><td class="yes">重点候选</td><td class="verify">需验证</td><td>P1</td></tr>
+        <tr><td>Kazakhstan</td><td>KZT</td><td>Local Card / Bank</td><td class="verify">需验证</td><td class="yes">重点候选</td><td class="verify">合规验证</td><td>P0</td></tr>
+        <tr><td>Uzbekistan</td><td>UZS</td><td>Local Card / Bank</td><td class="no">覆盖有限</td><td class="verify">需验证</td><td class="verify">合规验证</td><td>P1</td></tr>
+        <tr><td>UAE</td><td>AED</td><td>Card / Apple Pay / Bank</td><td class="yes">候选</td><td class="yes">候选</td><td class="yes">重点候选</td><td>P1</td></tr>
+      </tbody></table></div>
+    </div></section>
+
+    <section><div class="wrap"><div class="section-head"><div><h2>Payment Operations Console</h2><p class="sub">运营不应依赖发版才能停用故障渠道、调整地区优先级或查看异常订单。</p></div></div>
+      <div class="ops"><div class="panel metric"><small>Payment Volume</small><strong>$8.42M</strong><span class="status">示例数据</span></div><div class="panel metric"><small>Success Rate</small><strong>87.4%</strong><span class="status">+2.8%</span></div><div class="panel metric"><small>Avg. Processing</small><strong>42 sec</strong><span class="status">正常</span></div><div class="panel metric"><small>Active Providers</small><strong>6</strong><span class="status">全部可用</span></div></div>
+      <div class="panel table-wrap"><table class="matrix"><thead><tr><th>后台模块</th><th>核心能力</th><th>主要使用方</th></tr></thead><tbody><tr><td>Provider Management</td><td>启停渠道、能力配置、地区/法币/支付方式/限额管理</td><td>产品 / 运营 / 技术</td></tr><tr><td>Routing Rules</td><td>配置优先级、权重、白名单、灰度和 fallback</td><td>产品 / 运营</td></tr><tr><td>Order Console</td><td>查询标准状态、Provider 原始状态、Webhook 与异常恢复</td><td>客服 / 运营 / 技术</td></tr><tr><td>Reconciliation</td><td>订单、法币支付、Crypto 交付、退款和差异处理</td><td>财务 / 运营</td></tr><tr><td>Performance</td><td>按国家、支付方式、Provider 分析成功率、成本和耗时</td><td>产品 / BD / 管理层</td></tr></tbody></table></div>
+    </div></section>
+
+    <section id="roadmap"><div class="wrap"><div class="section-head"><div><h2>推荐实施路径</h2><p class="sub">第一期先解决原生体验与可扩展性，避免一开始就投入复杂的 AI 路由。</p></div></div>
+      <div class="phases"><article class="panel phase"><div class="pnum">PHASE 1 · MVP</div><h3>Native Buy Crypto</h3><ul><li>CoinW 原生三步买币流程</li><li>首批 2–3 个 Provider Adapter</li><li>统一 Quote、Order、Webhook</li><li>规则路由与人工优先级</li><li>订单历史、后台查询与基础对账</li></ul></article><article class="panel phase"><div class="pnum">PHASE 2 · OPTIMIZATION</div><h3>Smart Routing</h3><ul><li>实时成功率与渠道健康度</li><li>综合价格 / 转化评分</li><li>支付前自动 Failover</li><li>地区与用户分层策略</li><li>Provider 绩效看板</li></ul></article><article class="panel phase"><div class="pnum">PHASE 3 · PLATFORM</div><h3>Payment Intelligence</h3><ul><li>A/B Test 与转化优化</li><li>成本及 Revenue Share 优化</li><li>风险驱动路由</li><li>扩展 Fiat Deposit / Withdraw</li><li>Recurring Buy 与更多本地方式</li></ul></article></div>
+      <div class="note" style="margin-top:18px"><strong>建议首批市场：</strong>选择“业务量明确 + 本地支付价值高 + 至少两家可用通道”的 2–3 个国家做 MVP。波兰（PLN + BLIK）、巴西（BRL + Pix）及一个 CIS/中亚重点国家可作为首轮评估对象，但最终顺序以合规可行性、Provider 报价和历史流量数据确认。</div>
+    </div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><span>CoinW Native Buy Crypto · Regional Payment Orchestration</span><span>Product Architecture & User Cases · 2026</span></div></footer>
+</body>
+</html>
